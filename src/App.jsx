@@ -1,12 +1,11 @@
-import ExpenseForm from './components/ExpenseForm'
 import './index.css'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './components/routing/Routing'
 
 const App = () => {
   return (
-    <div>
-      <ExpenseForm/>
-    </div>
+    <RouterProvider router={router}/>
   )
 }
 
-export default App;
+export default App
