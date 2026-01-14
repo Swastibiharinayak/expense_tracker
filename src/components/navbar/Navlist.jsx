@@ -2,7 +2,7 @@ import React from 'react'
 import ListIterator from '../utils/ListIterator'
 
 const Navlist = () => {
-    const nav_items = ["home", "about", "contact", "reference"]
+    const nav_items = ["home", "about", "contact", "tracker"]
 
     return (
         <div className="w-[50%] h-full flex ml-auto">
