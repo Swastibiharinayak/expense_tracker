@@ -5,6 +5,8 @@ import Home from "../pages/Home";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import ExpenseForm from "../expense/ExpenseForm";
+import Dashboard from "../dashboard/Dashboard";
+import Dashboard_welcome from "../dashboard/Dashboard_welcome";
 
 export const router = createBrowserRouter([
     {
@@ -17,7 +19,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/home",
-                element: <Home/> ,
+                element: <Home />,
             },
             {
                 path: "/about",
@@ -25,11 +27,23 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/contact",
-                element: <Contact/>,
+                element: <Contact />,
             },
             {
-                path: "/tracker",
-                element: <ExpenseForm/>
+                path: "/dashboard",
+                element: (
+                        <Dashboard />  
+                ),
+                children: [
+                    {
+                        path: "/dashboard",
+                        element: <Dashboard_welcome />
+                    },
+                    {
+                        path: "/dashboard/tracker",
+                        element: <ExpenseForm />
+                    }
+                ]
             }
         ]
     }
