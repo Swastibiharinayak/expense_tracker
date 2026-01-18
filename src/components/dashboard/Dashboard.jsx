@@ -4,7 +4,7 @@ import { Link, Outlet } from 'react-router-dom'
 const Dashboard = () => {
   return (
         <div className="w-full h-[88.8vh] flex bg-[#e0e8f5]">
-            <div className="w-[18%] h-full bg-blue-900 rounded-3xl text-white">
+            <div className="w-[18%] h-full bg-blue-900 rounded-r-3xl text-white">
                 <h1 className="text-yellow-500 text-2xl ms-8 mt-12 font-semibold">User Dashboard</h1>
                 <ul className="text-white flex flex-col  gap-7 pt-10 ps-7 capitalize text-xl font-semibold">
                     
