@@ -3,8 +3,8 @@ import { Link, Outlet } from 'react-router-dom'
 
 const Dashboard = () => {
   return (
-        <div className="w-full h-[88.8vh] flex bg-[#e0e8f5]">
-            <div className="w-[18%] h-full bg-blue-900 rounded-r-3xl text-white">
+        <div className="w-full h-[88.8vh] flex bg-white dark:bg-black text-black dark:text-gray-200">
+            <div className="w-[18%] h-full bg-blue-900 rounded-r-3xl text-white ">
                 <h1 className="text-yellow-500 text-2xl ms-8 mt-12 font-semibold">User Dashboard</h1>
                 <ul className="text-white flex flex-col  gap-7 pt-10 ps-7 capitalize text-xl font-semibold">
                     
@@ -19,7 +19,7 @@ const Dashboard = () => {
             </div>
             <div className="w-[82%] h-full">
 
-                <div className="w-[80%] bg-slate-100 h-[80%] shadow-lg rounded-lg  mt-14 ms-32 text-center">
+                <div className="w-[80%] dark:bg-black bg-slate-100 h-[80%] shadow-lg rounded-lg  mt-14 ms-32 text-center">
                     <Outlet />
                 </div>
             </div>

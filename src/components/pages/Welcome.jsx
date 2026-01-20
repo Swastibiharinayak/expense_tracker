@@ -2,7 +2,7 @@ import React from 'react'
 
 const Welcome = () => {
   return (
-    <div>
+    <div className='bg-white dark:bg-black text-black dark:text-gray-200'>
       Welcome to SpendWise
     </div>
   )
