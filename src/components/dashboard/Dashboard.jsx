@@ -19,7 +19,7 @@ const Dashboard = () => {
             </div>
             <div className="w-[82%] h-full">
 
-                <div className="w-[80%] dark:bg-black bg-slate-100 h-[80%] shadow-lg rounded-lg  mt-14 ms-32 text-center">
+                <div className="w-[80%] dark:bg-gray-900 bg-slate-100 h-[80%] shadow-lg rounded-lg  mt-14 ms-32 text-center">
                     <Outlet />
                 </div>
             </div>
