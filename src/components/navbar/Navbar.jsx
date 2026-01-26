@@ -6,7 +6,7 @@ import Navlist from "./Navlist"
 const Navbar = () => {
     
     return (
-        <nav className='w-screen h-[78px] bg-[#f5f7fa] dark:bg-gray-700 flex items-center justify-between shadow-lg'>
+        <nav className='w-screen h-[78px] bg-[#f5f7fa] dark:bg-gray-700 flex items-center justify-between shadow-lg sticky top-0 z-50'>
             <Link to="/" >
                 <div className='w-1/5 h-full flex items-center ps-6 gap-2'>
                     <img src={logo} alt="" className="w-100 rounded-full" />
