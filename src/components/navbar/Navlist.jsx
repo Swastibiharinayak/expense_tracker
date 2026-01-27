@@ -7,7 +7,7 @@ const Navlist = () => {
     const { theme, toggleTheme } = useTheme();
 
     return (
-        <div className="w-[50%] h-full flex ml-auto">
+        <div className="h-full flex ml-auto">
             <ul className="w-[75%] gap-5 h-full flex items-center justify-evenly text-xl font-semibold capitalize text-blue-700 dark:text-blue-400">
                 <ListIterator list={nav_items} />
                 <button
