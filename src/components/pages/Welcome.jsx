@@ -2,6 +2,7 @@ import React from 'react'
 import Features from './Features'
 import { FaBullseye, FaPiggyBank } from 'react-icons/fa'
 import { FaArrowTrendUp } from 'react-icons/fa6'
+import About from './About'
 
 const Welcome = () => {
   return (
@@ -96,12 +97,14 @@ const Welcome = () => {
       </div> */}
       <Features />
 
-      <div id="about" className='w-screen h-screen bg-pink-400'>
+      {/* <div id="about" className='w-screen h-screen bg-pink-400'>
         <h1>About</h1>
         <h1>How its different</h1>
         <h1>Vision</h1>
         <h1>About Me</h1>
-      </div>
+      </div> */}
+      <About/>
+      
       <div id="contact" className='w-screen h-screen bg-teal-400'>
         <h1>Contact Info</h1>
       </div>
