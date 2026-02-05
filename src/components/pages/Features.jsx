@@ -6,7 +6,7 @@ const Features = () => {
     return (
         <>
             <div className='w-screen px-40 py-20 flex flex-col justify-center items-center'>
-                <span className='rounded-3xl border p-4 text-xl bg-slate-50'>✨ Why Choose SpendWise</span>
+                <span className='rounded-full border p-2 text-xl bg-slate-50'>✨ Why Choose SpendWise</span>
 
                 <h1 className='text-transform: capitalize text-7xl font-semibold text-center'>Everything You Need to <span className='text-teal-500'>Master Your Finances</span></h1>
 

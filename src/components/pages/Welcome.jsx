@@ -3,13 +3,16 @@ import Features from './Features'
 import { FaBullseye, FaPiggyBank } from 'react-icons/fa'
 import { FaArrowTrendUp } from 'react-icons/fa6'
 import About from './About'
+import Reviews from './Reviews'
 
 const Welcome = () => {
   return (
-    <div className='bg-white dark:bg-black text-black dark:text-gray-200'>
-      <div className='w-screen h-screen bg-gradient-to-br from-teal-700 to-teal-300 flex'>
-        <div className="left w-[50%] h-full p-4 flex flex-col justify-around items-start">
-          <span className='rounded-3xl bg-transparent border p-4 text-xl'>✨ Smart financial management</span>
+    <section className='bg-white dark:bg-black text-black dark:text-gray-200'>
+      <div className='w-screen h-screen bg-gradient-to-br from-teal-700 to-teal-300 flex justify-center'>
+        
+        {/* Left Side */}
+        <div className="w-[40%] h-full p-4 flex flex-col justify-around items-start">
+          <span className='rounded-full bg-transparent border p-2 text-xl'>✨ Smart financial management</span>
 
           <h1 className='text-transform: capitalize text-7xl font-semibold text-white'>Master your money, <span className='text-teal-500'>Achieve your goals</span></h1>
 
@@ -33,12 +36,11 @@ const Welcome = () => {
               <h3>4.9</h3>
               <p>Users rating</p>
             </div>
-
           </div>
-
-
         </div>
-        <div className="right w-[50%] h-full relative">
+
+        {/* Right Side */}
+        <div className="right w-[40%] h-full relative">
           {/* 1st card */}
           <div className=' bg-slate-200 rounded-lg p-4 absolute top-10 right-10 gap-4 animate-bounce'>
             <div className='flex gap-4 h-16'>
@@ -56,7 +58,7 @@ const Welcome = () => {
           </div>
 
           {/* 2nd card */}
-          <div className=' bg-slate-200 rounded-lg p-4 absolute bottom-10 left-40 gap-4 animate-bounce'>
+          <div className=' bg-slate-200 rounded-lg p-4 absolute top-60 left-40 gap-4 animate-bounce'>
             <div className='flex gap-4 h-16'>
               <div className='p-3 bg-green-300 rounded-xl h-12 w-12'>
                 <FaBullseye className="text-2xl text-green-500" />
@@ -89,26 +91,14 @@ const Welcome = () => {
         </div>
       </div>
 
-      {/* <div id="home" className='w-screen h-screen bg-yellow-400'>
-        <h1>Home</h1>
-        <h1>Preview</h1>
-        <h1>Features</h1>
-        <h1>How it works</h1>
-      </div> */}
+
       <Features />
 
-      {/* <div id="about" className='w-screen h-screen bg-pink-400'>
-        <h1>About</h1>
-        <h1>How its different</h1>
-        <h1>Vision</h1>
-        <h1>About Me</h1>
-      </div> */}
-      <About/>
-      
-      <div id="contact" className='w-screen h-screen bg-teal-400'>
-        <h1>Contact Info</h1>
-      </div>
-    </div>
+
+      <About />
+
+      <Reviews />
+    </section>
   )
 }
 

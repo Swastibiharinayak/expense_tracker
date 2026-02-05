@@ -1,6 +1,7 @@
 import React from 'react'
-import { FaCheck } from 'react-icons/fa'
+import { FaAward, FaCheck, FaGlobe, FaHeart, FaUsers } from 'react-icons/fa'
 import { FaRightFromBracket } from 'react-icons/fa6'
+import AboutCards from '../utils/AboutCards'
 
 const About = () => {
   return (
@@ -35,27 +36,67 @@ const About = () => {
           {/* CHECKLIST */}
           <ul className="mt-10 space-y-4">
             <li className="flex items-center gap-3 text-gray-200">
-              <span className='p-2 rounded-full bg-green-600'><FaCheck/></span>
+              <span className='p-2 rounded-full bg-green-600'><FaCheck /></span>
               Personalized recommendations based on your income and goals
             </li>
             <li className="flex items-center gap-3 text-gray-200">
-              <span className='p-2 rounded-full bg-green-600'><FaCheck/></span>
+              <span className='p-2 rounded-full bg-green-600'><FaCheck /></span>
               Real-time tracking with intelligent categorization
             </li>
             <li className="flex items-center gap-3 text-gray-200">
-              <span className='p-2 rounded-full bg-green-600'><FaCheck/></span>
+              <span className='p-2 rounded-full bg-green-600'><FaCheck /></span>
               Secure, bank-level encryption for your peace of mind
             </li>
           </ul>
         </div>
 
-        {/* RIGHT STATS GRID */}
+        {/* RIGHT CONTENT */}
         <div className="grid grid-cols-2 gap-8">
 
-          {/* Card */}
-          
+          {/* Cards */}
+          <AboutCards
+            icon={<FaUsers />}
+            value="50,000+"
+            label="Happy Users"
+          />
+
+          <AboutCards
+            icon={<FaAward />}
+            value="$2.5M+"
+            label="Money Saved"
+          />
+
+          <AboutCards
+            icon={<FaGlobe />}
+            value="30+"
+            label="Countries"
+          />
+
+          <AboutCards
+            icon={<FaHeart />}
+            value="99%"
+            label="Satisfaction"
+          />
         </div>
 
+      </div>
+
+      {/* CEO Message */}
+      <div className="flex justify-center py-20">
+        <div className="max-w-4xl bg-gray-200 rounded-3xl px-16 py-14 text-center shadow-xl">
+          <p className="text-2xl italic text-gray-900 leading-relaxed">
+            “Our mission is to democratize financial intelligence. We want to give
+            everyone—regardless of their income level—access to the same quality
+            of financial guidance that was once reserved for the wealthy.”
+          </p>
+
+          <div className="mt-10">
+            <p className="font-semibold text-gray-900">Swasti B. Nayak</p>
+            <p className="text-gray-600 text-sm">
+              Founder & CEO, SpendWise
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   )
