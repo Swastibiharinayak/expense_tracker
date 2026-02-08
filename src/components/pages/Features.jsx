@@ -1,6 +1,7 @@
 import React from 'react'
-import { FaArrowCircleUp, FaBell, FaBullseye, FaChartPie, FaWallet } from 'react-icons/fa'
+import { FaBell, FaBullseye, FaChartPie, FaWallet } from 'react-icons/fa'
 import { FaArrowTrendUp, FaShield } from 'react-icons/fa6'
+import FeaturesCards from '../utils/FeaturesCards'
 
 const Features = () => {
     return (
@@ -13,48 +14,38 @@ const Features = () => {
                 <p className='text-slate-500 text-2xl'>From tracking daily expenses to planning long-term investments, our intelligent platform adapts to your financial journey.</p>
 
                 <div className='flex flex-wrap gap-5 justify-center items-center'>
-                    <div className='rounded-xl hover:scale-105 bg-slate-100 border transition-all duration-300 ease-out w-96 h-80 flex flex-col justify-center items-start p-6 hover:shadow-lg'>
-                        <div className='p-3 bg-green-400 rounded-xl h-12 w-12'>
-                            <FaWallet className="text-2xl text-white" />
-                        </div>
-                        <h3 className='text-2xl font-semibold'>Smart Expense Tracking</h3>
-                        <p className='text-slate-400'>Automatically categorize and track every expense. See where your money goes with intuitive visualizations.</p>
-                    </div>
-                    <div className='rounded-xl hover:scale-105 bg-slate-100 border transition-all duration-300 ease-out w-96 h-80 flex flex-col justify-center items-start p-6 hover:shadow-lg'>
-                        <div className='p-3 bg-green-400 rounded-xl h-12 w-12'>
-                            <FaBell className="text-2xl text-white" />
-                        </div>
-                        <h3 className='text-2xl font-semibold'>Personalized Notifications</h3>
-                        <p className='text-slate-400'>Get timely alerts based on your spending patterns. Never miss a bill or overspend again.</p>
-                    </div>
-                    <div className='rounded-xl hover:scale-105 bg-slate-100 border transition-all duration-300 ease-out w-96 h-80 flex flex-col justify-center items-start p-6 hover:shadow-lg'>
-                        <div className='p-3 bg-green-400 rounded-xl h-12 w-12'>
-                            <FaArrowTrendUp className="text-2xl text-white" />
-                        </div>
-                        <h3 className='text-2xl font-semibold'>Investment Suggestions</h3>
-                        <p className='text-slate-400'>AI-powered recommendations tailored to your income and risk tolerance. Grow your wealth smartly.</p>
-                    </div>
-                    <div className='rounded-xl hover:scale-105 bg-slate-100 border transition-all duration-300 ease-out w-96 h-80 flex flex-col justify-center items-start p-6 hover:shadow-lg'>
-                        <div className='p-3 bg-green-400 rounded-xl h-12 w-12'>
-                            <FaBullseye className="text-2xl text-white" />
-                        </div>
-                        <h3 className='text-2xl font-semibold'>Goal-Based Planning</h3>
-                        <p className='text-slate-400'>Set financial goals and get a personalized roadmap. Whether it's a vacation or retirement, we've got you.</p>
-                    </div>
-                    <div className='rounded-xl hover:scale-105 bg-slate-100 border transition-all duration-300 ease-out w-96 h-80 flex flex-col justify-center items-start p-6 hover:shadow-lg'>
-                        <div className='p-3 bg-green-400 rounded-xl h-12 w-12'>
-                            <FaChartPie className="text-2xl text-white" />
-                        </div>
-                        <h3 className='text-2xl font-semibold'>Budget Analysis</h3>
-                        <p className='text-slate-400'>Understand your needs vs wants. Get suggestions to optimize spending based on your salary.</p>
-                    </div>
-                    <div className='rounded-xl hover:scale-105 bg-slate-100 border transition-all duration-300 ease-out w-96 h-80 flex flex-col justify-center items-start p-6 hover:shadow-lg'>
-                        <div className='p-3 bg-green-400 rounded-xl h-12 w-12'>
-                            <FaShield className="text-2xl text-white" />
-                        </div>
-                        <h3 className='text-2xl font-semibold'>Secure & Private</h3>
-                        <p className='text-slate-400'>Bank-level encryption keeps your data safe. Your financial information stays yours.</p>
-                    </div>
+
+                    <FeaturesCards
+                        icon={<FaWallet />}
+                        heading="Smart Expense Tracking"
+                        paragraph="Automatically categorize and track every expense. See where your money goes with intuitive visualizations."
+                    />
+                    <FeaturesCards
+                        icon={<FaBell />}
+                        heading="Personalized Notifications"
+                        paragraph="Get timely alerts based on your spending patterns. Never miss a bill or overspend again."
+                    />
+                    <FeaturesCards
+                        icon={<FaArrowTrendUp />}
+                        heading="Investment Suggestions"
+                        paragraph="AI-powered recommendations tailored to your income and risk tolerance. Grow your wealth smartly."
+                    />
+                    <FeaturesCards
+                        icon={<FaBullseye />}
+                        heading="Goal-Based Planning"
+                        paragraph="Set financial goals and get a personalized roadmap. Whether it's a vacation or retirement, we've got you."
+                    />
+                    <FeaturesCards
+                        icon={<FaChartPie />}
+                        heading="Budget Analysis"
+                        paragraph="Understand your needs vs wants. Get suggestions to optimize spending based on your salary."
+                    />
+                    <FeaturesCards
+                        icon={<FaShield />}
+                        heading="Secure & Private"
+                        paragraph="Bank-level encryption keeps your data safe. Your financial information stays yours."
+                    />
+
                 </div>
             </div>
             <section className="py-20">

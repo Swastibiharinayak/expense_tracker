@@ -6,6 +6,8 @@ import Contact from "../pages/Contact";
 import ExpenseForm from "../expense/ExpenseForm";
 import Dashboard from "../dashboard/Dashboard";
 import Dashboard_welcome from "../dashboard/Dashboard_welcome";
+import Register from "../login/Register";
+import Login from "../login/Login";
 
 export const router = createBrowserRouter([
     {
@@ -39,6 +41,14 @@ export const router = createBrowserRouter([
                         element: <ExpenseForm />
                     }
                 ]
+            },
+            {
+                path:"/login",
+                element: <Login />
+            },
+            {
+                path:"/register",
+                element: <Register />
             }
         ]
     }
