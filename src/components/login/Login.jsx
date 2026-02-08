@@ -1,46 +1,34 @@
-import React from 'react'
-import { FaApple, FaArrowRight, FaGoogle } from 'react-icons/fa'
+import React, { useState } from 'react'
+import LoginForm from './LoginForm'
+import RegistrationForm from './RegistrationForm'
 
 const Login = () => {
-  return (
-    <div className='bg-gradient-to-b from-[#0E1A2D] to-[#0B1220] h-screen w-screen pt-24 flex items-center justify-center'>
-      
-        {/* Main div */}
-        <div className='max-w-md bg-slate-300 rounded-3xl flex flex-col items-center p-8 gap-3'>
-            <h2 className='text-2xl font-semibold'>Welcome Back</h2>
-            <p>Sign in to your account or create a new one</p>
-            <div className='flex bg-slate-100 gap-5 p-1 rounded-lg'>
-                <button className='px-16 bg-white'>Login</button>
-                <button className='px-16'>Sign Up</button>
-            </div>
+    const [loginToggle, setLoginToggle] = useState(false)
+    return (
+        <div className='bg-gradient-to-b from-[#0E1A2D] to-[#0B1220] w-screen py-24 flex flex-col gap-4 items-center justify-center'>
 
-            {/* Login form */}
-            <form className='w-[100%] flex flex-col gap-2'>
-                <label htmlFor="">Email</label>
-                <input type="email" placeholder="you@example.com" className='p-2 w-[95%] rounded-xl' />
-                <label htmlFor="">Password</label>
-                <input type="password" placeholder="•••••••••" className='p-2 w-[95%] rounded-xl' />
-
-                {/* Remember / forgot password */}
-                <div className='flex justify-between'>
-                    <label htmlFor="" className='text-slate-500'><input type="checkbox" name="" id="" /> Remember me</label>
-                    
-                    <a className='no-underline font-semibold text-teal-600'>Forgot password?</a>
+            {/* Main div */}
+            <div className='max-w-md bg-white text-gray-800 rounded-3xl flex flex-col items-center p-8 gap-3'>
+                <h2 className='text-2xl font-semibold'>Welcome Back</h2>
+                <p>Sign in to your account or create a new one</p>
+                <div className='flex bg-slate-100 gap-5 p-1 rounded-lg'>
+                    <button className={loginToggle ? "bg-white px-16 py-2 rounded-lg" : "px-16 py-2 rounded-lg"} onClick={() => setLoginToggle(true)}>Login</button>
+                    <button className={!loginToggle ? "bg-white px-16 py-2 rounded-lg" : "px-16 py-2 rounded-lg"} onClick={() => setLoginToggle(false)}>Sign Up</button>
                 </div>
 
-                <button className='flex items-center px-40 py-5 bg-teal-500 rounded-xl text-white font-bold text-md '> Sign in <FaArrowRight /> </button>
-            </form>
-            
-
-            <span> Or continue with </span>
-
-            <div className='flex justify-between w-full'>
-                <button className='px-14 py-2 rounded-xl flex items-center bg-white gap-2'><FaGoogle /> Google </button>
-            <button className='px-14 py-2 rounded-xl bg-white flex items-center gap-2'><FaApple /> Apple</button>
+                
+                {loginToggle ? 
+                // Login Form
+                <LoginForm />
+                : 
+                // Registration Form
+                <RegistrationForm />
+                }
             </div>
+
+            <p className='text-center text-sm text-slate-400'>By continuing, you acknowledge that you have read and understood our <span className='text-yellow-500 hover:underline underline-offset-2'><br />Privacy Policy.</span></p>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Login
