@@ -7,6 +7,8 @@ import ExpenseForm from "../expense/ExpenseForm";
 import Dashboard from "../dashboard/Dashboard";
 import Dashboard_welcome from "../dashboard/Dashboard_welcome";
 import Login from "../login/Login";
+import Features from "../pages/Features";
+import Reviews from "../pages/Reviews";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +22,14 @@ export const router = createBrowserRouter([
             {
                 path: "/about",
                 element: <About />,
+            },
+            {
+                path: "/features",
+                element: <Features />,
+            },
+            {
+                path: "/reviews",
+                element: <Reviews />,
             },
             {
                 path: "/contact",

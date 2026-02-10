@@ -1,103 +1,126 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Features from './Features'
 import { FaBullseye, FaPiggyBank } from 'react-icons/fa'
 import { FaArrowTrendUp } from 'react-icons/fa6'
 import About from './About'
 import Reviews from './Reviews'
+import Footer from '../footer/Footer'
 
 const Welcome = () => {
+
+  const aboutRef = useRef(null)
+  const featuresRef = useRef(null)
+  const reviewsRef = useRef(null)
+
+
   return (
-    <section className='bg-white dark:bg-black text-black dark:text-gray-200'>
-      <div className='w-screen h-screen bg-gradient-to-br from-teal-700 to-teal-300 flex justify-center'>
-        
-        {/* Left Side */}
-        <div className="w-[40%] h-full p-4 flex flex-col justify-around items-start">
-          <span className='rounded-full bg-transparent border p-2 text-xl'>✨ Smart financial management</span>
+    <section className="bg-white dark:bg-black text-black dark:text-gray-200">
+      <div className="min-h-screen bg-gradient-to-br from-[#0E1A2D] to-[#0B1220] flex items-center">
 
-          <h1 className='text-transform: capitalize text-7xl font-semibold text-white'>Master your money, <span className='text-teal-500'>Achieve your goals</span></h1>
+        {/* Container */}
+        <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-center justify-between gap-12">
 
-          <p className='text-white text-2xl'>Track expenses, get personalized savings suggestions and invest smarter. Let AI guide you to financial freedom based on your salary and lifestyle.</p>
+          {/* LEFT SIDE */}
+          <div className="w-full lg:w-1/2 flex flex-col gap-8 text-center lg:text-left">
 
-          <div className='flex gap-4'>
-            <button className="px-4 py-2 rounded-lg font-bold text-white bg-gradient-to-r from-teal-700 to-teal-300 transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg">Start Free Today</button>
-            <button className="px-4 py-2 rounded-lg bg-transparent border outline-white font-bold hover:backdrop-blur-lg transition-all duration-300 ease-out hover:scale-105">Watch Demo</button>
-          </div>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/30 text-white text-sm w-fit mx-auto lg:mx-0">
+              ✨ Smart financial management
+            </span>
 
-          <div className='flex gap-5 text-2xl'>
-            <div>
-              <h3>50K+</h3>
-              <p>Active Users</p>
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-semibold text-white leading-tight">
+              Master your money,{" "}
+              <span className="text-teal-200">Achieve your goals</span>
+            </h1>
+
+            <p className="text-white/90 text-base md:text-lg lg:text-xl max-w-xl mx-auto lg:mx-0">
+              Track expenses, get personalized savings suggestions and invest smarter.
+              Let AI guide you to financial freedom based on your salary and lifestyle.
+            </p>
+
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <button className="px-6 py-3 rounded-xl font-semibold text-white bg-teal-600 hover:bg-teal-500 transition-all duration-300 hover:scale-105 shadow-lg">
+                Start Free Today
+              </button>
+              <button className="px-6 py-3 rounded-xl border border-white/50 text-white backdrop-blur-md hover:bg-white/10 transition-all duration-300 hover:scale-105">
+                Watch Demo
+              </button>
             </div>
-            <div>
-              <h3>$2.5M</h3>
-              <p>Money saved</p>
-            </div>
-            <div>
-              <h3>4.9</h3>
-              <p>Users rating</p>
-            </div>
-          </div>
-        </div>
 
-        {/* Right Side */}
-        <div className="right w-[40%] h-full relative">
-          {/* 1st card */}
-          <div className=' bg-slate-200 rounded-lg p-4 absolute top-10 right-10 gap-4 animate-bounce'>
-            <div className='flex gap-4 h-16'>
-              <div className='p-3 bg-yellow-200 rounded-xl h-12 w-12'>
-                <FaPiggyBank className="text-2xl text-yellow-500" />
+            {/* Stats */}
+            <div className="flex justify-center lg:justify-start gap-10 text-white">
+              <div>
+                <h3 className="text-2xl font-bold">50K+</h3>
+                <p className="text-sm opacity-80">Active Users</p>
               </div>
               <div>
-                <h4 className='text-lg font-semibold'>Goal: Vacation</h4>
-                <p>78% complete</p>
-              </div>
-            </div>
-            <div className='w-full bg-white rounded-full h-3 overflow-hidden'>
-              <div className='h-full w-[78%] bg-teal-400 rounded-full'></div>
-            </div>
-          </div>
-
-          {/* 2nd card */}
-          <div className=' bg-slate-200 rounded-lg p-4 absolute top-60 left-40 gap-4 animate-bounce'>
-            <div className='flex gap-4 h-16'>
-              <div className='p-3 bg-green-300 rounded-xl h-12 w-12'>
-                <FaBullseye className="text-2xl text-green-500" />
+                <h3 className="text-2xl font-bold">₹2.5Cr+</h3>
+                <p className="text-sm opacity-80">Money Saved</p>
               </div>
               <div>
-                <h4 className='text-lg font-semibold'>AI Suggestion</h4>
-                <p>Save ₹5000 more this month</p>
+                <h3 className="text-2xl font-bold">4.9★</h3>
+                <p className="text-sm opacity-80">User Rating</p>
               </div>
             </div>
           </div>
 
-          {/* 3rd card */}
-          <div className=' bg-slate-200 rounded-lg p-4 absolute bottom-10 right-10 gap-4 animate-bounce'>
-            <div className='flex gap-4 h-16'>
-              <div className='p-3 bg-green-400 rounded-xl h-12 w-12'>
-                <FaArrowTrendUp className="text-2xl text-white" />
+          {/* RIGHT SIDE */}
+          <div className="hidden lg:block w-1/2 relative h-[500px]">
+
+            {/* Card 1 */}
+            <div className="absolute top-10 right-10 bg-white rounded-xl p-4 w-72 shadow-xl animate-[float_6s_ease-in-out_infinite]">
+              <div className="flex gap-4 items-center">
+                <div className="p-3 bg-yellow-200 rounded-xl">
+                  <FaPiggyBank className="text-2xl text-yellow-600" />
+                </div>
+                <div>
+                  <h4 className="font-semibold">Goal: Vacation</h4>
+                  <p className="text-sm text-gray-500">78% complete</p>
+                </div>
               </div>
-              <div>
-                <h4 className='text-lg font-bold'>Monthly Overview</h4>
-                <p>January 2026</p>
+              <div className="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-full w-[78%] bg-teal-500 rounded-full"></div>
               </div>
             </div>
-            <div className='w-full'>
-              <p>Income</p>
-              <p>Expenses</p>
-              <hr />
-              <p>Savings</p>
+
+            {/* Card 2 */}
+            <div className="absolute top-56 left-16 bg-white rounded-xl p-4 w-72 shadow-xl animate-[float_7s_ease-in-out_infinite]">
+              <div className="flex gap-4 items-center">
+                <div className="p-3 bg-green-200 rounded-xl">
+                  <FaBullseye className="text-2xl text-green-600" />
+                </div>
+                <div>
+                  <h4 className="font-semibold">AI Suggestion</h4>
+                  <p className="text-sm text-gray-500">Save ₹5000 more</p>
+                </div>
+              </div>
             </div>
+
+            {/* Card 3 */}
+            <div className="absolute bottom-10 right-20 bg-white rounded-xl p-4 w-72 shadow-xl animate-[float_8s_ease-in-out_infinite]">
+              <div className="flex gap-4 items-center">
+                <div className="p-3 bg-teal-500 rounded-xl">
+                  <FaArrowTrendUp className="text-2xl text-white" />
+                </div>
+                <div>
+                  <h4 className="font-semibold">Monthly Overview</h4>
+                  <p className="text-sm text-gray-500">January 2026</p>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
 
 
-      <Features />
+      <Features ref={featuresRef}/>
 
+      <About ref={aboutRef}/>
 
-      <About />
+      <Reviews ref={reviewsRef}/>
 
-      <Reviews />
+      <Footer />
     </section>
   )
 }

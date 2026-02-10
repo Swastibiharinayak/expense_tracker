@@ -1,31 +1,71 @@
-import { FaApple, FaArrowRight, FaGoogle } from 'react-icons/fa'
+import { FaApple, FaArrowRight, FaGoogle, FaEnvelope, FaLock, FaEye } from 'react-icons/fa'
 
 const LoginForm = () => {
     return (
-        <div>
-            <form className='w-[100%] flex flex-col gap-2'>
-                <label htmlFor="">Email</label>
-                <input type="email" placeholder="you@example.com" className='p-2 w-[95%] rounded-xl' />
-                <label htmlFor="">Password</label>
-                <input type="password" placeholder="•••••••••" className='p-2 w-[95%] rounded-xl' />
+        <div className="w-full mt-4">
 
-                {/* Remember / forgot password */}
-                <div className='flex justify-between'>
-                    <label htmlFor="" className='text-slate-500'><input type="checkbox" name="" id="" /> Remember me</label>
+            <form className="flex flex-col gap-4">
 
-                    <a className='no-underline font-semibold text-teal-600'>Forgot password?</a>
+                {/* Email */}
+                <label className="text-sm font-medium">Email</label>
+                <div className="flex items-center justify-between rounded-xl px-4 py-3 focus-within:border-2 focus-within:border-teal-500 focus-within:shadow-md focus-within:shadow-blue-300/40 gap-2">
+                    <FaEnvelope className="text-slate-400" />
+                    <input
+                        type="email"
+                        placeholder="you@example.com"
+                        className="outline-none w-full"
+                    />
                 </div>
 
-                <button className='flex items-center px-40 py-5 bg-teal-500 rounded-xl text-white font-bold text-md '> Sign in <FaArrowRight /> </button>
+                {/* Password */}
+                <label className="text-sm font-medium">Password</label>
+                <div className="flex items-center justify-between rounded-xl px-4 py-3 focus-within:border-2 focus-within:border-teal-500 focus-within:shadow-md focus-within:shadow-blue-300/40">
+                    <FaLock className="text-slate-400" />
+                    <input
+                        type="password"
+                        placeholder="••••••••"
+                        className="outline-none flex-1 px-2"
+                    />
+                    <FaEye className="text-slate-400 cursor-pointer" />
+                </div>
+
+                {/* Remember / Forgot */}
+                <div className="flex justify-between items-center text-sm">
+                    <label className="flex items-center gap-2 text-slate-500">
+                        <input type="checkbox" />
+                        Remember me
+                    </label>
+
+                    <a className="text-teal-600 font-semibold cursor-pointer">
+                        Forgot password?
+                    </a>
+                </div>
+
+                {/* Button */}
+                <button className="w-full py-4 bg-teal-500 text-white rounded-xl font-semibold flex items-center justify-center gap-2">
+                    Sign In <FaArrowRight />
+                </button>
             </form>
 
-
-            <span> Or continue with </span>
-
-            <div className='flex justify-between w-full'>
-                <button className='px-14 py-2 rounded-xl flex items-center bg-white gap-2'><FaGoogle /> Google </button>
-                <button className='px-14 py-2 rounded-xl bg-white flex items-center gap-2'><FaApple /> Apple</button>
+            {/* Divider */}
+            <div className="flex items-center gap-3 text-slate-400 text-sm my-6">
+                <div className="flex-1 h-px bg-slate-200" />
+                <span>Or continue with</span>
+                <div className="flex-1 h-px bg-slate-200" />
             </div>
+
+            {/* Social buttons */}
+            <div className="flex gap-4">
+                <button className="flex-1 flex items-center justify-center gap-2
+                           border rounded-xl py-2 hover:bg-yellow-500 transition">
+                    <FaGoogle /> Google
+                </button>
+                <button className="flex-1 flex items-center justify-center gap-2
+                           border rounded-xl py-2 hover:bg-yellow-500 transition">
+                    <FaApple /> Apple
+                </button>
+            </div>
+
         </div>
     )
 }
