@@ -1,42 +1,65 @@
+import { useContext, useState } from "react"
 import { FaApple, FaArrowRight, FaGoogle, FaUser, FaLock } from "react-icons/fa"
 import { MdEmail } from "react-icons/md"
+import AuthContext from "../../context/AuthContext"
 
 const SignupForm = () => {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  // console.log(email,password)
+
+  const { register } = useContext(AuthContext)
+
+  function handleRegister(e) {
+    e.preventDefault()
+    register({name, email, password})
+    // console.log(name, email, password)
+  }
   return (
     <div className="w-full flex flex-col gap-6">
 
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" onSubmit={handleRegister}>
 
         {/* Full Name */}
-        <label className="text-sm font-medium">Full Name</label>
+        <label className="text-sm font-medium" htmlFor="name">Full Name</label>
         <div className="flex items-center justify-between rounded-xl px-4 py-3 focus-within:border-2 focus-within:border-teal-500 focus-within:shadow-md focus-within:shadow-blue-300/40 gap-2">
           <FaUser className="text-slate-400" />
           <input
             type="text"
             placeholder="John Doe"
             className="flex-1 outline-none bg-transparent"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
 
         {/* Email */}
-        <label className="text-sm font-medium">Email</label>
+        <label className="text-sm font-medium" htmlFor="email">Email</label>
         <div className="flex items-center justify-between rounded-xl px-4 py-3 focus-within:border-2 focus-within:border-teal-500 focus-within:shadow-md focus-within:shadow-blue-300/40 gap-2">
           <MdEmail className="text-slate-400" />
           <input
             type="email"
             placeholder="you@example.com"
             className="flex-1 outline-none bg-transparent"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
         {/* Password */}
-        <label className="text-sm font-medium">Password</label>
+        <label className="text-sm font-medium" htmlFor="password">Password</label>
         <div className="flex items-center justify-between rounded-xl px-4 py-3 focus-within:border-2 focus-within:border-teal-500 focus-within:shadow-md focus-within:shadow-blue-300/40 gap-2">
           <FaLock className="text-slate-400" />
           <input
             type="password"
             placeholder="••••••••"
             className="flex-1 outline-none bg-transparent"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 

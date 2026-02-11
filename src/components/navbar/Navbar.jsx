@@ -50,7 +50,7 @@ const Navbar = () => {
       </div>
 
       {/* Hamburger (Mobile) */}
-      <div className="lg:hidden cursor-pointer text-2xl text-gray-700 dark:text-gray-200 bg-yellow-300" >
+      <div className="lg:hidden cursor-pointer text-2xl text-gray-700 dark:text-gray-200" >
         <FaBars />
       </div>
 
