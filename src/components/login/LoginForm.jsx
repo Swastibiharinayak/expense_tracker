@@ -1,14 +1,37 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { FaApple, FaArrowRight, FaGoogle, FaEnvelope, FaLock, FaEye } from 'react-icons/fa'
+import AuthContext from '../../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 const LoginForm = () => {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [loginData, setLoginData] = useState({
+        email: "",
+        password: ""
+    })
+    const { email, password } = loginData
     // console.log(email,password)
 
-    function handleLogin (e) {
+    const [showPassword, setShowPassword] = useState(false)
+
+    const { login } = useContext(AuthContext)
+    const navigate = useNavigate();
+
+
+
+    const handleInput = (e) => {
+        const { name , value } = e.target
+
+        setLoginData(prev => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
+    const handleLogin = (e) => {
         e.preventDefault()
-        console.log(email,password)
+        login({email , password})
+        navigate("/dashboard");
+        // console.log(email, password)
     }
 
     return (
@@ -25,8 +48,9 @@ const LoginForm = () => {
                         type="email"
                         placeholder="you@example.com"
                         className="outline-none w-full"
+                        name='email'
                         value={email}
-                        onChange={(e)=> setEmail(e.target.value)}
+                        onChange={handleInput}
                     />
                 </div>
 
@@ -35,13 +59,14 @@ const LoginForm = () => {
                 <div className="flex items-center justify-between rounded-xl px-4 py-3 focus-within:border-2 focus-within:border-teal-500 focus-within:shadow-md focus-within:shadow-blue-300/40">
                     <FaLock className="text-slate-400" />
                     <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         placeholder="••••••••"
                         className="outline-none flex-1 px-2"
+                        name='password'
                         value={password}
-                        onChange={(e)=> setPassword(e.target.value)}
+                        onChange={handleInput}
                     />
-                    <FaEye className="text-slate-400 cursor-pointer" />
+                    <FaEye className="text-slate-400 cursor-pointer" onClick={() => setShowPassword(prev => !prev)}/>
                 </div>
 
                 {/* Remember / Forgot */}

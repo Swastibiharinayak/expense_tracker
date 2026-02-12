@@ -1,5 +1,7 @@
+const UserVal = "users"
+
 export const userRegister = ({name, email, password}) => {
-    let users = localStorage.getItem("users") || "[]"
+    let users = localStorage.getItem(UserVal) || "[]"
     let isExist = false
     users = JSON.parse(users);
     isExist = users.find(item => item.email == email) ? true : false
@@ -9,8 +11,20 @@ export const userRegister = ({name, email, password}) => {
     }
 
     users.push({name, email, password})
-    localStorage.setItem("users", JSON.stringify(users))
+    localStorage.setItem(UserVal, JSON.stringify(users))
     return true;
 }
 
+
+export const userLogin = ({email,password}) => {
+    let users = localStorage.getItem(UserVal) 
+    users = JSON.parse(users);
+    if (users) {
+        const isUser = users.find(item => item.email == email)
+        if (isUser && isUser.password == password) {
+            return isUser
+        }
+        return false
+    }
+}
 // this is a fake api which will get the users data from the localstorage. Then verifies using isExist if the email is there in the local storage it will return false or else it will return true

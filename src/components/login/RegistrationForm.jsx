@@ -1,19 +1,46 @@
 import { useContext, useState } from "react"
-import { FaApple, FaArrowRight, FaGoogle, FaUser, FaLock } from "react-icons/fa"
+import { FaApple, FaArrowRight, FaGoogle, FaUser, FaLock, FaEye } from "react-icons/fa"
 import { MdEmail } from "react-icons/md"
 import AuthContext from "../../context/AuthContext"
 
 const SignupForm = () => {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [registerData, setRegisterData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    agree: false
+  })
+
+  const [showPassword, setShowPassword] = useState(false)
+
+  const { name, email, password, agree } = registerData
   // console.log(email,password)
 
   const { register } = useContext(AuthContext)
 
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target
+
+    setRegisterData(prev => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value
+    }))
+  }
+
   function handleRegister(e) {
     e.preventDefault()
-    register({name, email, password})
+
+    if (!agree) {
+      alert("You must agree to Terms & Conditions")
+      return
+    }
+
+    if (password.length < 8) {
+      alert("Password must be at least 8 characters")
+      return
+    }
+
+    register({ name, email, password })
     // console.log(name, email, password)
   }
   return (
@@ -30,8 +57,9 @@ const SignupForm = () => {
             placeholder="John Doe"
             className="flex-1 outline-none bg-transparent"
             id="name"
+            name="name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleChange}
           />
         </div>
 
@@ -44,8 +72,9 @@ const SignupForm = () => {
             placeholder="you@example.com"
             className="flex-1 outline-none bg-transparent"
             id="email"
+            name="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleChange}
           />
         </div>
 
@@ -54,13 +83,15 @@ const SignupForm = () => {
         <div className="flex items-center justify-between rounded-xl px-4 py-3 focus-within:border-2 focus-within:border-teal-500 focus-within:shadow-md focus-within:shadow-blue-300/40 gap-2">
           <FaLock className="text-slate-400" />
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="••••••••"
             className="flex-1 outline-none bg-transparent"
             id="password"
+            name="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleChange}
           />
+          <FaEye className="text-slate-400 cursor-pointer" onClick={() => setShowPassword(prev => !prev)} />
         </div>
 
         <p className="text-xs text-slate-400">
@@ -69,7 +100,12 @@ const SignupForm = () => {
 
         {/* Terms */}
         <label className="flex items-start gap-2 text-sm text-slate-500">
-          <input type="checkbox" className="mt-1" />
+          <input
+            type="checkbox"
+            name="agree"
+            checked={agree}
+            onChange={handleChange}
+            className="mt-1" />
           <p>
             I agree to the <a className="text-teal-500 font-semibold underline cursor-pointer">Terms of Service</a> and <a className="text-teal-500 font-semibold underline cursor-pointer">Privacy Policy</a>
           </p>
