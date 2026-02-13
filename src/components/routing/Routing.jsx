@@ -9,6 +9,7 @@ import Dashboard_welcome from "../dashboard/Dashboard_welcome";
 import Login from "../login/Login";
 import Features from "../pages/Features";
 import Reviews from "../pages/Reviews";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
     {
@@ -38,7 +39,9 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard",
                 element: (
+                    <ProtectedRoute>
                         <Dashboard />  
+                    </ProtectedRoute>
                 ),
                 children: [
                     {

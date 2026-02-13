@@ -17,12 +17,12 @@ export const userRegister = ({name, email, password}) => {
 
 
 export const userLogin = ({email,password}) => {
-    let users = localStorage.getItem(UserVal) 
+    let users = localStorage.getItem(UserVal) || []
     users = JSON.parse(users);
     if (users) {
-        const isUser = users.find(item => item.email == email)
-        if (isUser && isUser.password == password) {
-            return isUser
+        const currentUser = users.find(item => item.email == email)
+        if (currentUser && currentUser.password == password) {
+            return currentUser
         }
         return false
     }

@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import logo from "../../assets/logo.png"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Navlist from "./Navlist"
 import { FaBars } from "react-icons/fa"
+import AuthContext from "../../context/AuthContext"
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,6 +18,15 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const { user, logout } = useContext(AuthContext)
+
+  const handleLogout = () => {
+    logout()
+    alert("User Logged out")
+    navigate("/")
+  }
+
+
   return (
     <nav
       className={`
@@ -23,10 +34,9 @@ const Navbar = () => {
         flex items-center justify-between
         px-6 py-4
         transition-all duration-300
-        ${
-          scrolled
-            ? "bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg shadow-md"
-            : "bg-transparent"
+        ${scrolled
+          ? "bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg shadow-md"
+          : "bg-transparent"
         }
       `}
     >
@@ -46,7 +56,7 @@ const Navbar = () => {
 
       {/* Nav links (Desktop) */}
       <div className="hidden lg:flex">
-        <Navlist/>
+        <Navlist />
       </div>
 
       {/* Hamburger (Mobile) */}
@@ -55,20 +65,31 @@ const Navbar = () => {
       </div>
 
       {/* Auth buttons (Desktop) */}
-      <div className="hidden lg:flex gap-3">
-        <Link to="/login">
-          <button className="px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition">
-            Sign in
-          </button>
-        </Link>
-        <button
-          className="px-4 py-2 rounded-lg font-semibold text-white
+      {
+        !user ?
+          <div className="hidden lg:flex gap-3">
+            <Link to="/login">
+              <button className="px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition">
+                Sign in
+              </button>
+            </Link>
+            <button
+              className="px-4 py-2 rounded-lg font-semibold text-white
                      bg-gradient-to-r from-teal-700 to-teal-300
                      hover:scale-105 transition"
-        >
-          Get Started Free
-        </button>
-      </div>
+            >
+              Get Started Free
+            </button>
+          </div>
+          :
+          <button
+            className="px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+      }
+
     </nav>
   )
 }
