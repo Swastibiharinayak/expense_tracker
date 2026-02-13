@@ -3,12 +3,17 @@ import logo from "../../assets/logo.png"
 import { Link, useNavigate } from "react-router-dom"
 import Navlist from "./Navlist"
 import { FaBars } from "react-icons/fa"
+import { IoCloseSharp } from "react-icons/io5"
 import AuthContext from "../../context/AuthContext"
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
+  const [clicked, setClicked] = useState(false)
   const navigate = useNavigate()
 
+  const { user, logout } = useContext(AuthContext)
+
+  // Scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
@@ -18,14 +23,16 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const { user, logout } = useContext(AuthContext)
-
   const handleLogout = () => {
     logout()
     alert("User Logged out")
     navigate("/")
+    setClicked(false) // mobile menu close
   }
 
+  const handleMobileClose = () => {
+    setClicked(false)
+  }
 
   return (
     <nav
@@ -41,7 +48,7 @@ const Navbar = () => {
       `}
     >
       {/* Logo */}
-      <Link to="/">
+      <Link to="/" onClick={handleMobileClose}>
         <div className="flex items-center gap-2">
           <img
             src={logo}
@@ -54,42 +61,86 @@ const Navbar = () => {
         </div>
       </Link>
 
-      {/* Nav links (Desktop) */}
+      {/* Desktop Nav */}
       <div className="hidden lg:flex">
         <Navlist />
       </div>
 
-      {/* Hamburger (Mobile) */}
-      <div className="lg:hidden cursor-pointer text-2xl text-gray-700 dark:text-gray-200" >
-        <FaBars />
-      </div>
-
-      {/* Auth buttons (Desktop) */}
-      {
-        !user ?
-          <div className="hidden lg:flex gap-3">
+      {/* Desktop Auth */}
+      <div className="hidden lg:flex gap-3">
+        {!user ? (
+          <>
             <Link to="/login">
               <button className="px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition">
                 Sign in
               </button>
             </Link>
-            <button
-              className="px-4 py-2 rounded-lg font-semibold text-white
-                     bg-gradient-to-r from-teal-700 to-teal-300
-                     hover:scale-105 transition"
-            >
+            <button className="px-4 py-2 rounded-lg font-semibold text-white
+                               bg-gradient-to-r from-teal-700 to-teal-300
+                               hover:scale-105 transition">
               Get Started Free
             </button>
-          </div>
-          :
+          </>
+        ) : (
           <button
             className="px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition"
             onClick={handleLogout}
           >
             Logout
           </button>
-      }
+        )}
+      </div>
 
+      {/* Mobile Toggle */}
+      <div className="lg:hidden text-2xl cursor-pointer">
+        {clicked ? (
+          <IoCloseSharp onClick={() => setClicked(false)} />
+        ) : (
+          <FaBars onClick={() => setClicked(true)} />
+        )}
+      </div>
+
+      {/* Mobile Dropdown */}
+      {clicked && (
+        <div className="absolute top-full left-0 w-full bg-white dark:bg-gray-800 shadow-lg flex flex-col items-center py-6 gap-6 lg:hidden">
+
+          {/* Nav Links */}
+          <ul className="flex flex-col items-center gap-5 text-lg font-semibold text-blue-700 dark:text-blue-400 capitalize">
+            <li onClick={handleMobileClose}>
+              <Link to="/about">About</Link>
+            </li>
+            <li onClick={handleMobileClose}>
+              <Link to="/features">Features</Link>
+            </li>
+            <li onClick={handleMobileClose}>
+              <Link to="/reviews">Reviews</Link>
+            </li>
+          </ul>
+
+          {/* Auth Buttons */}
+          {!user ? (
+            <div className="flex flex-col gap-4 w-[80%]">
+              <Link to="/login" onClick={handleMobileClose}>
+                <button className="w-full px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition">
+                  Sign in
+                </button>
+              </Link>
+              <button className="w-full px-4 py-2 rounded-lg font-semibold text-white
+                                 bg-gradient-to-r from-teal-700 to-teal-300
+                                 hover:scale-105 transition">
+                Get Started Free
+              </button>
+            </div>
+          ) : (
+            <button
+              className="px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          )}
+        </div>
+      )}
     </nav>
   )
 }

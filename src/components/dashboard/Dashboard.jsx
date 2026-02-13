@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
 const Dashboard = () => {
-    const dashboardItems = ["overview", "profile", "expenses", "insights"]
+    const dashboardItems = ["overview", "expenses", "goals", "profile", "insights"]
 
     return (
         <div className="w-full h-[88.8vh] flex bg-white dark:bg-black text-black dark:text-gray-200">
