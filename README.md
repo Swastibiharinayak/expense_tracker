@@ -1,16 +1,59 @@
-# React + Vite
+💰 SpendWise – Expense Tracker Web App
+A modern and responsive expense tracking web application built using React and Tailwind CSS.
+The application allows users to register, log in, and manage their daily expenses through a dynamic dashboard.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+🚀 Live Demo
+👉 [(https://expense-tracker-spend-wise.vercel.app/)](https://expense-tracker-spend-wise.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+📂 GitHub Repository
+👉 https://github.com/Swastibiharinayak/expense_tracker
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+✨ Features
+🔐 User Registration & Login (localStorage based authentication)
+📊 Dynamic Dashboard with real-time expense updates
+🌗 Dark & Light Theme Toggle
+📱 Fully Responsive Mobile Navigation Menu
+🔒 Protected Routes
+🎨 Clean and Modern UI using Tailwind CSS
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🛠 Tech Stack
+• React (Vite)
+• Tailwind CSS
+• React Router
+• JavaScript (ES6+)
+• localStorage API
+• Vercel (Deployment)
+
+
+📸 Screenshots
+<img width="1902" height="870" alt="Screenshot 2026-02-13 100453" src="https://github.com/user-attachments/assets/dbb4b75a-02ec-4987-ac2c-bbb5168e2df9" />
+<img width="1894" height="870" alt="Screenshot 2026-02-13 100522" src="https://github.com/user-attachments/assets/bc063c9b-799a-4fb0-b9a2-113acf8e1f51" />
+<img width="1917" height="869" alt="Screenshot 2026-02-13 100600" src="https://github.com/user-attachments/assets/29633c80-87e2-4072-9c41-388e6e7b657c" />
+
+
+🧠 What I Learned
+• State management in React
+• Component structuring & reusability
+• Authentication flow handling
+• Protected routing logic
+• Responsive design principles
+• Deployment using Vercel
+
+
+🚀 Future Enhancements
+• Backend integration (Node.js + Express + MongoDB)
+• JWT based authentication
+• Expense category filtering & sorting
+• Data visualization with charts (Chart.js / Recharts)
+• Export reports (PDF/CSV)
+• User profile management
+• Cloud database integration
+• Monthly expense analytics
+
+📌 Project Status
+
+Active development 🚀
+More features coming soon.
