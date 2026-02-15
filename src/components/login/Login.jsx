@@ -28,13 +28,13 @@ const Login = () => {
           </button>
         </div>
 
-        {isLogin ? <LoginForm /> : <RegistrationForm />}
+        {isLogin ? <LoginForm /> : <RegistrationForm setIsLogin={setIsLogin}/>}
       </div>
 
       <p className='text-center text-sm text-slate-400'>
         By continuing, you acknowledge that you have read and understood our
         <span className='text-yellow-500 hover:underline underline-offset-2'>
-          <br />Privacy Policy.
+          <br />Privacy Policy. 
         </span>
       </p>
     </div>

@@ -2,8 +2,12 @@ import { useContext, useState } from "react"
 import { FaApple, FaArrowRight, FaGoogle, FaUser, FaLock, FaEye } from "react-icons/fa"
 import { MdEmail } from "react-icons/md"
 import AuthContext from "../../context/AuthContext"
+import { toast } from "react-toastify"
 
-const SignupForm = () => {
+
+const RegistrationForm = ({setIsLogin}) => {
+  // console.log("setIsLogin:", setIsLogin)
+
   const [registerData, setRegisterData] = useState({
     name: "",
     email: "",
@@ -27,22 +31,30 @@ const SignupForm = () => {
     }))
   }
 
-  function handleRegister(e) {
+  const handleRegister = (e) => {
     e.preventDefault()
 
     if (!agree) {
-      alert("You must agree to Terms & Conditions")
+      toast.error("You must agree to Terms & Conditions")
       return
     }
 
     if (password.length < 8) {
-      alert("Password must be at least 8 characters")
+      toast.error("Password must be at least 8 characters")
       return
     }
 
-    register({ name, email, password })
-    // console.log(name, email, password)
+    const response = register({ name, email, password })
+
+    if (response.success) {
+      toast.success("User registered successfully 🎉")
+      setIsLogin(true)
+
+    } else {
+      toast.error(response.message)
+    }
   }
+
   return (
     <div className="w-full flex flex-col gap-6">
 
@@ -145,4 +157,4 @@ const SignupForm = () => {
   )
 }
 
-export default SignupForm
+export default RegistrationForm

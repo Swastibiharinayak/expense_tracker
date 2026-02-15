@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
 const Dashboard = () => {
-    const dashboardItems = ["overview", "expenses", "goals", "profile", "insights"]
+    const dashboardItems = ["overview", "expense form", "goals", "profile", "insights"]
 
     return (
         <div className="w-full h-[88.8vh] flex bg-white dark:bg-black text-black dark:text-gray-200">
@@ -11,13 +11,13 @@ const Dashboard = () => {
                 <h1 className="text-yellow-500 text-2xl ms-8 mt-12 font-semibold">User Dashboard</h1>
                 <ul className="text-white flex flex-col  gap-7 pt-10 ps-7 capitalize text-xl font-semibold">
                     {
-                        dashboardItems.map((i) => {
+                        dashboardItems.map((item, index) => {
                             return (
-                                // <Link to={`/dashboard/${i}`}>
+                                <Link key={index} to={`/dashboard/${item}`}>
                                     <li className='hover:bg-yellow-400 rounded-xl px-3 py-3 w-[55%] hover:text-blue-950'>
-                                        {i}
+                                        {item}
                                     </li>
-                                // </Link>
+                                </Link>
                             )
                         })
                     }

@@ -2,6 +2,8 @@ import { useContext, useState } from 'react'
 import { FaApple, FaArrowRight, FaGoogle, FaEnvelope, FaLock, FaEye } from 'react-icons/fa'
 import AuthContext from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+// import { toast, ToastContainer } from 'react-toastify'
 
 const LoginForm = () => {
     const [loginData, setLoginData] = useState({
@@ -19,7 +21,7 @@ const LoginForm = () => {
 
 
     const handleInput = (e) => {
-        const { name , value } = e.target
+        const { name, value } = e.target
 
         setLoginData(prev => ({
             ...prev,
@@ -29,10 +31,27 @@ const LoginForm = () => {
 
     const handleLogin = (e) => {
         e.preventDefault()
-        login({email , password})
-        navigate("/dashboard");
-        // console.log(email, password)
+
+        if (!email || !password) {
+            toast.error("All fields are required")
+            return
+        }
+
+        const response = login({ email, password })
+
+        if (response.success) {
+            toast.success("Login successful 🎉")
+
+            setTimeout(() => {
+                navigate("/dashboard")
+            }, 1200)
+
+        } else {
+            toast.error(response.message)
+        }
     }
+
+
 
     return (
         <div className="w-full mt-4">
@@ -66,7 +85,7 @@ const LoginForm = () => {
                         value={password}
                         onChange={handleInput}
                     />
-                    <FaEye className="text-slate-400 cursor-pointer" onClick={() => setShowPassword(prev => !prev)}/>
+                    <FaEye className="text-slate-400 cursor-pointer" onClick={() => setShowPassword(prev => !prev)} />
                 </div>
 
                 {/* Remember / Forgot */}
@@ -83,7 +102,7 @@ const LoginForm = () => {
 
                 {/* Button */}
                 <button className="w-full py-4 bg-teal-500 text-white rounded-xl font-semibold flex items-center justify-center gap-2">
-                    Sign In <FaArrowRight />
+                    Login <FaArrowRight />
                 </button>
             </form>
 

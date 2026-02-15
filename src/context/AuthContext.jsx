@@ -1,42 +1,75 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { userLogin, userRegister } from '../apis';
+import { checkLogin, userLogin, userLogout, userRegister } from '../apis';
 
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null)
-  const [error, setError] = useState(null)
+  const [user, setUser] = useState([])
+  // const [error, setError] = useState(null)
 
+  // Register handle
   const register = ({ name, email, password }) => {
-    // console.log("Context",name, email,password)
     const isRegistered = userRegister({ name, email, password })
+
     if (isRegistered) {
-      alert("User registered successfully")
+      return { success: true }
     } else {
-      setError("Email already exists")
+      return { success: false, message: "Email already exists" }
     }
   }
 
+  // Login Handle
   const login = ({ email, password }) => {
-    const isLoggedin = userLogin({ email, password })
-    // console.log("context",email , password)
-    if (isLoggedin) {
-      setUser(isLoggedin)
-      localStorage.setItem("currentUser", JSON.stringify(isLoggedin))
-      alert("User logged in successfully")
-    } else {
-      setError("Email or Password is Incorrect")
+    const response = userLogin({ email, password })
+
+    if (response.success) {
+      setUser(response.user)
+      localStorage.setItem("currentUser", JSON.stringify(response.user))
+      return {
+        success: true,
+        message: "Login successful"
+      }
+    }
+
+    return {
+      success: false,
+      message: response.message
     }
   }
 
   const logout = () => {
     setUser(null)
-    localStorage.removeItem("currentUser")
+    userLogout()
   }
 
+  useEffect(() => {
+  const storedUser = checkLogin()
+  // console.log("Stored user:", storedUser)
+
+  if (storedUser) {
+    const parsed = JSON.parse(storedUser)
+    // console.log("Parsed user:", parsed)
+    if (parsed) { 
+      setUser(parsed)
+    }
+  }
+}, [])
+
+
+  // console.log(user)
+
+  // useEffect(() => {
+  //   const storedUser = localStorage.getItem("currentUser")
+
+  //   if (storedUser) {
+  //     setUser(JSON.parse(storedUser))
+  //   }
+  // }, [])
+
+
   return (
-    <AuthContext.Provider value={{ user, error, register, login, logout }}>
+    <AuthContext.Provider value={{ user, register, login, logout }}>
       {children}
     </AuthContext.Provider>
   )

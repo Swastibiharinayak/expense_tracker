@@ -10,6 +10,10 @@ import Login from "../login/Login";
 import Features from "../pages/Features";
 import Reviews from "../pages/Reviews";
 import ProtectedRoute from "./ProtectedRoute";
+import Goals from "../dashboard/Goals";
+import Insights from "../dashboard/Insights";
+import Overview from "../dashboard/Overview";
+import Profile from "../dashboard/Profile";
 
 export const router = createBrowserRouter([
     {
@@ -49,9 +53,25 @@ export const router = createBrowserRouter([
                         element: <Dashboard_welcome />
                     },
                     {
-                        path: "/dashboard/tracker",
+                        path: "/dashboard/expense form",
                         element: <ExpenseForm />
-                    }
+                    },
+                    {
+                        path: "/dashboard/goals",
+                        element: <Goals />
+                    },
+                    {
+                        path: "/dashboard/insights",
+                        element: <Insights />
+                    },
+                    {
+                        path: "/dashboard/profile",
+                        element: <Profile />
+                    },
+                    {
+                        path: "/dashboard/Overview",
+                        element: <Overview />
+                    },
                 ]
             },
             {

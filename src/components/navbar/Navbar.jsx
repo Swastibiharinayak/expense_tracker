@@ -25,7 +25,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout()
-    alert("User Logged out")
+    // alert("User Logged out")
     navigate("/")
     setClicked(false) // mobile menu close
   }
@@ -82,12 +82,21 @@ const Navbar = () => {
             </button>
           </>
         ) : (
-          <button
-            className="px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
+          <>
+            <button
+              className="px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+            <Link to="/dashboard" onClick={handleMobileClose}>
+              <button className="w-full px-4 py-2 rounded-lg font-semibold text-white
+                                 bg-gradient-to-r from-teal-700 to-teal-300
+                                 hover:scale-105 transition">
+                Dashboard
+              </button>
+            </Link>
+          </>
         )}
       </div>
 
@@ -132,12 +141,18 @@ const Navbar = () => {
               </button>
             </div>
           ) : (
-            <button
-              className="px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition"
-              onClick={handleLogout}
-            >
-              Logout
-            </button>
+            <div className="flex flex-col gap-4 w-[80%]">
+              <button onClick={handleLogout} className="w-full px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition">
+                Logout
+              </button>
+              <Link to="/dashboard" onClick={handleMobileClose}>
+                <button className="w-full px-4 py-2 rounded-lg font-semibold text-white
+                                 bg-gradient-to-r from-teal-700 to-teal-300
+                                 hover:scale-105 transition">
+                  Dashboard
+                </button>
+              </Link>
+            </div>
           )}
         </div>
       )}

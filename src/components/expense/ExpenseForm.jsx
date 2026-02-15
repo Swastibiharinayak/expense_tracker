@@ -1,17 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const ExpenseForm = () => {
+  const [expenseData, setExpenseData] = useState({
+    title: "",
+    amount: "",
+    category: "",
+    date: "",
+    payment_type: "",
+    description: ""
+  })
+
+  const { title, amount, category, date, payment_type, description } = expenseData
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+
+    setExpenseData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleExpenseData = (e) => {
+    e.preventDefault()
+    console.log(expenseData)
+  }
+
   return (
     <div className="w-full h-full overflow-scroll">
       <h1 className="text-4xl font-medium mb-4">New Expense</h1>
       <hr className="border-gray-700 mb-8" />
 
       <div className="grid grid-cols-1 md:grid-cols-3">
-        <form className="md:col-span-2 grid gap-y-5 mx-auto w-full max-w-4xl">
+        <form onSubmit={handleExpenseData} className="md:col-span-2 grid gap-y-5 mx-auto w-full max-w-4xl">
 
           <div className="grid grid-cols-3 items-center gap-x-6">
             <label className="text-sm text-gray-400 text-right">Title</label>
             <input
+              name='title'
+              value={title}
+              onChange={handleChange}
               type="text"
               className="col-span-2 bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
@@ -20,6 +48,9 @@ const ExpenseForm = () => {
           <div className="grid grid-cols-3 items-center gap-x-6">
             <label className="text-sm text-gray-400 text-right">Amount</label>
             <input
+              name='amount'
+              value={amount}
+              onChange={handleChange}
               type="number"
               className="col-span-2 bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
@@ -28,6 +59,9 @@ const ExpenseForm = () => {
           <div className="grid grid-cols-3 items-center gap-x-6">
             <label className="text-sm text-gray-400 text-right">Category</label>
             <select
+              name="category"
+              value={category}
+              onChange={handleChange}
               defaultValue=""
               className="col-span-2 bg-gray-800 border border-gray-700 rounded-md px-4 py-2"
             >
@@ -43,6 +77,9 @@ const ExpenseForm = () => {
           <div className="grid grid-cols-3 items-center gap-x-6">
             <label className="text-sm text-gray-400 text-right">Date</label>
             <input
+              name='date'
+              value={date}
+              onChange={handleChange}
               type="date"
               className="col-span-2 bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
@@ -51,7 +88,9 @@ const ExpenseForm = () => {
           <div className="grid grid-cols-3 items-center gap-x-6">
             <label className="text-sm text-gray-400 text-right">Payment type</label>
             <select
-              defaultValue=""
+              name="payment_type"
+              value={payment_type}
+              onChange={handleChange}
               className="col-span-2 bg-gray-800 border border-gray-700 rounded-md px-4 py-2"
             >
               <option value="" disabled>Select one</option>
@@ -66,6 +105,9 @@ const ExpenseForm = () => {
               Description
             </label>
             <textarea
+              name="description"
+              value={description}
+              onChange={handleChange}
               rows={5}
               className="col-span-2 bg-gray-800 border border-gray-700 rounded-md px-4 py-2"
             ></textarea>
