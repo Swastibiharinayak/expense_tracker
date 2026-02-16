@@ -1,16 +1,22 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import AuthContext from '../../context/AuthContext'
+import { toast } from 'react-toastify'
 
 const ExpenseForm = () => {
-  const [expenseData, setExpenseData] = useState({
+
+  const initialState = {
     title: "",
     amount: "",
     category: "",
     date: "",
     payment_type: "",
     description: ""
-  })
+  }
 
+  const [expenseData, setExpenseData] = useState(initialState)
   const { title, amount, category, date, payment_type, description } = expenseData
+
+  const { addNewExpense, expenses } = useContext(AuthContext)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -23,8 +29,18 @@ const ExpenseForm = () => {
 
   const handleExpenseData = (e) => {
     e.preventDefault()
-    console.log(expenseData)
+    // console.log(expenseData)
+    const response = addNewExpense(expenseData)
+
+    if (response.success) {
+      toast.success("Expense added successfully")
+      setExpenseData(initialState)
+    } else {
+      toast.error(response.message)
+    }
   }
+
+  console.log(expenses)
 
   return (
     <div className="w-full h-full overflow-scroll">
@@ -35,8 +51,9 @@ const ExpenseForm = () => {
         <form onSubmit={handleExpenseData} className="md:col-span-2 grid gap-y-5 mx-auto w-full max-w-4xl">
 
           <div className="grid grid-cols-3 items-center gap-x-6">
-            <label className="text-sm text-gray-400 text-right">Title</label>
+            <label htmlFor='title' className="text-sm text-gray-400 text-right">Title</label>
             <input
+              id='title'
               name='title'
               value={title}
               onChange={handleChange}
@@ -46,8 +63,9 @@ const ExpenseForm = () => {
           </div>
 
           <div className="grid grid-cols-3 items-center gap-x-6">
-            <label className="text-sm text-gray-400 text-right">Amount</label>
+            <label htmlFor='amount' className="text-sm text-gray-400 text-right">Amount</label>
             <input
+              id='amount'
               name='amount'
               value={amount}
               onChange={handleChange}
@@ -57,12 +75,12 @@ const ExpenseForm = () => {
           </div>
 
           <div className="grid grid-cols-3 items-center gap-x-6">
-            <label className="text-sm text-gray-400 text-right">Category</label>
+            <label htmlFor='category' className="text-sm text-gray-400 text-right">Category</label>
             <select
+              id="category"
               name="category"
               value={category}
               onChange={handleChange}
-              defaultValue=""
               className="col-span-2 bg-gray-800 border border-gray-700 rounded-md px-4 py-2"
             >
               <option value="" disabled>Select one</option>
@@ -75,8 +93,9 @@ const ExpenseForm = () => {
           </div>
 
           <div className="grid grid-cols-3 items-center gap-x-6">
-            <label className="text-sm text-gray-400 text-right">Date</label>
+            <label htmlFor='date' className="text-sm text-gray-400 text-right">Date</label>
             <input
+              id='date'
               name='date'
               value={date}
               onChange={handleChange}
@@ -86,8 +105,9 @@ const ExpenseForm = () => {
           </div>
 
           <div className="grid grid-cols-3 items-center gap-x-6">
-            <label className="text-sm text-gray-400 text-right">Payment type</label>
+            <label htmlFor='payment_type' className="text-sm text-gray-400 text-right">Payment type</label>
             <select
+              id="payment_type"
               name="payment_type"
               value={payment_type}
               onChange={handleChange}
@@ -101,10 +121,11 @@ const ExpenseForm = () => {
           </div>
 
           <div className="grid grid-cols-3 items-start gap-x-6">
-            <label className="text-sm text-gray-400 text-right pt-2">
+            <label htmlFor='description' className="text-sm text-gray-400 text-right pt-2">
               Description
             </label>
             <textarea
+              id="description"
               name="description"
               value={description}
               onChange={handleChange}
@@ -127,6 +148,7 @@ const ExpenseForm = () => {
 
         </form>
       </div>
+
     </div>
   )
 }

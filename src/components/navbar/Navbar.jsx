@@ -5,6 +5,7 @@ import Navlist from "./Navlist"
 import { FaBars } from "react-icons/fa"
 import { IoCloseSharp } from "react-icons/io5"
 import AuthContext from "../../context/AuthContext"
+import { toast } from "react-toastify"
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
@@ -25,7 +26,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout()
-    // alert("User Logged out")
+    toast.success("User Logged out")
     navigate("/")
     setClicked(false) // mobile menu close
   }

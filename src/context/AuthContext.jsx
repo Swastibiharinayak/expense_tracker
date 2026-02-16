@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { checkLogin, userLogin, userLogout, userRegister } from '../apis';
+import { addExpense, checkLogin, deleteExpense, fetchExpenses, userLogin, userLogout, userRegister } from '../apis';
 
 
 const AuthContext = createContext(null);
@@ -7,6 +7,8 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState([])
   // const [error, setError] = useState(null)
+  const [expenses, setExpenses] = useState([])
+
 
   // Register handle
   const register = ({ name, email, password }) => {
@@ -43,33 +45,60 @@ export const AuthProvider = ({ children }) => {
     userLogout()
   }
 
-  useEffect(() => {
-  const storedUser = checkLogin()
-  // console.log("Stored user:", storedUser)
+  // Add new expense fucntion
 
-  if (storedUser) {
-    const parsed = JSON.parse(storedUser)
-    // console.log("Parsed user:", parsed)
-    if (parsed) { 
-      setUser(parsed)
+  const addNewExpense = (expenseData) => {
+    const response = addExpense(expenseData)
+    console.log(response)
+    if (response.success) {
+      fetchAllExpenses()
+      return { success: true }
     }
-  }
-}, [])
 
+    return { success: false, message: "Failed to add expense" }
+  }
+
+  // Fetch all expenses
+
+  const fetchAllExpenses = () => {
+    const data = fetchExpenses()
+    setExpenses(data)
+  }
+
+  // Delete expense
+
+  const removeExpense = (id) => {
+    const response = deleteExpense(id)
+
+    if (response.success) {
+      fetchAllExpenses()
+    }
+
+    return response
+  }
+
+  useEffect(() => {
+    const storedUser = checkLogin()
+    // console.log("Stored user:", storedUser)
+
+    if (storedUser) {
+      const parsed = JSON.parse(storedUser)
+      // console.log("Parsed user:", parsed)
+      if (parsed) {
+        setUser(parsed)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (user) {
+      fetchAllExpenses()
+    }
+  }, [user])
 
   // console.log(user)
-
-  // useEffect(() => {
-  //   const storedUser = localStorage.getItem("currentUser")
-
-  //   if (storedUser) {
-  //     setUser(JSON.parse(storedUser))
-  //   }
-  // }, [])
-
-
   return (
-    <AuthContext.Provider value={{ user, register, login, logout }}>
+    <AuthContext.Provider value={{ user, register, login, logout, addNewExpense, removeExpense, expenses }}>
       {children}
     </AuthContext.Provider>
   )
