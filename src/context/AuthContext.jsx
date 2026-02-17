@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { addExpense, checkLogin, deleteExpense, fetchExpenses, userLogin, userLogout, userRegister } from '../apis';
+import { addExpense, checkLogin, deleteExpense, fetchExpenses, updateExpense, userLogin, userLogout, userRegister } from '../apis';
 
 
 const AuthContext = createContext(null);
@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState([])
   // const [error, setError] = useState(null)
   const [expenses, setExpenses] = useState([])
+  const [doEdit, setDoEdit] = useState(null)
 
 
   // Register handle
@@ -46,27 +47,26 @@ export const AuthProvider = ({ children }) => {
   }
 
   // Add new expense fucntion
-
   const addNewExpense = (expenseData) => {
     const response = addExpense(expenseData)
-    console.log(response)
+    // console.log(response)
     if (response.success) {
       fetchAllExpenses()
-      return { success: true }
+      // return { success: true }
     }
 
-    return { success: false, message: "Failed to add expense" }
+    return response
   }
 
-  // Fetch all expenses
 
+  // Fetch all expenses
   const fetchAllExpenses = () => {
     const data = fetchExpenses()
     setExpenses(data)
   }
 
-  // Delete expense
 
+  // Delete expense
   const removeExpense = (id) => {
     const response = deleteExpense(id)
 
@@ -77,6 +77,21 @@ export const AuthProvider = ({ children }) => {
     return response
   }
 
+
+  // Edit expenses
+  const editExpense = (expenseData) => {
+    const response = updateExpense(expenseData)
+
+    if (response.success) {
+      const updatedExpenses = fetchExpenses()
+      setExpenses(updatedExpenses)
+    }
+
+    return response
+  }
+
+
+  // useEffect for stay logged in still after refresh
   useEffect(() => {
     const storedUser = checkLogin()
     // console.log("Stored user:", storedUser)
@@ -90,6 +105,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [])
 
+  // useEffect for refreshing fetchAllExpenses
   useEffect(() => {
     if (user) {
       fetchAllExpenses()
@@ -98,7 +114,7 @@ export const AuthProvider = ({ children }) => {
 
   // console.log(user)
   return (
-    <AuthContext.Provider value={{ user, register, login, logout, addNewExpense, removeExpense, expenses }}>
+    <AuthContext.Provider value={{ user, register, login, logout, addNewExpense, removeExpense, expenses, editExpense, doEdit, setDoEdit }}>
       {children}
     </AuthContext.Provider>
   )

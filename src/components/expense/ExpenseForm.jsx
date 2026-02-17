@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import AuthContext from '../../context/AuthContext'
 import { toast } from 'react-toastify'
 
@@ -16,7 +16,7 @@ const ExpenseForm = () => {
   const [expenseData, setExpenseData] = useState(initialState)
   const { title, amount, category, date, payment_type, description } = expenseData
 
-  const { addNewExpense, expenses } = useContext(AuthContext)
+  const { addNewExpense, doEdit, setDoEdit, editExpense } = useContext(AuthContext)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -27,63 +27,114 @@ const ExpenseForm = () => {
     }))
   }
 
-  const handleExpenseData = (e) => {
-    e.preventDefault()
-    // console.log(expenseData)
-    const response = addNewExpense(expenseData)
 
-    if (response.success) {
-      toast.success("Expense added successfully")
-      setExpenseData(initialState)
-    } else {
-      toast.error(response.message)
-    }
+  const handleExpenseData = (e) => {
+  e.preventDefault()
+  let response
+
+  if (doEdit) {
+    response = editExpense(expenseData)
+  } else {
+    response = addNewExpense(expenseData)
   }
 
-  console.log(expenses)
+  if (response.success) {
+    toast.success(doEdit ? "Expense updated" : "Expense added")
+    setExpenseData(initialState)
+    setDoEdit(null)
+  } else {
+    toast.error(response.message)
+  }
+}
+
+  useEffect(() => {
+    if (doEdit) {
+      setExpenseData(doEdit)
+    }
+  }, [doEdit])
+
+
+  // console.log(expenses)
 
   return (
-    <div className="w-full h-full overflow-scroll">
-      <h1 className="text-4xl font-medium mb-4">New Expense</h1>
-      <hr className="border-gray-700 mb-8" />
+  <div className="h-full overflow-y-auto px-4 sm:px-8 py-6">
 
-      <div className="grid grid-cols-1 md:grid-cols-3">
-        <form onSubmit={handleExpenseData} className="md:col-span-2 grid gap-y-5 mx-auto w-full max-w-4xl">
+    {/* Header */}
+    <div className="mb-8">
+      <h1 className="text-3xl sm:text-4xl font-semibold">
+        {doEdit ? "Update Expense" : "Add New Expense"}
+      </h1>
+      <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm">
+        {doEdit
+          ? "Modify your existing expense details"
+          : "Track your spending by adding a new expense"}
+      </p>
+    </div>
 
-          <div className="grid grid-cols-3 items-center gap-x-6">
-            <label htmlFor='title' className="text-sm text-gray-400 text-right">Title</label>
+    {/* Card Container */}
+    <div className="bg-white dark:bg-[#111C33] 
+                    rounded-2xl shadow-lg 
+                    p-6 sm:p-10 
+                    max-w-5xl mx-auto">
+
+      <form onSubmit={handleExpenseData} className="space-y-6">
+
+        {/* Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          {/* Title */}
+          <div>
+            <label className="block text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">
+              Title
+            </label>
             <input
-              id='title'
-              name='title'
+              name="title"
               value={title}
               onChange={handleChange}
               type="text"
-              className="col-span-2 bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              required
+              className="w-full px-4 py-3 rounded-xl 
+                        bg-gray-100 dark:bg-[#0B1220]
+                        border border-gray-300 dark:border-gray-700
+                        focus:ring-2 focus:ring-teal-500 
+                        focus:outline-none transition"
             />
           </div>
 
-          <div className="grid grid-cols-3 items-center gap-x-6">
-            <label htmlFor='amount' className="text-sm text-gray-400 text-right">Amount</label>
+          {/* Amount */}
+          <div>
+            <label className="block text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">
+              Amount
+            </label>
             <input
-              id='amount'
-              name='amount'
+              name="amount"
               value={amount}
               onChange={handleChange}
               type="number"
-              className="col-span-2 bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              required
+              className="w-full px-4 py-3 rounded-xl 
+                        bg-gray-100 dark:bg-[#0B1220]
+                        border border-gray-300 dark:border-gray-700
+                        focus:ring-2 focus:ring-teal-500 
+                        focus:outline-none transition"
             />
           </div>
 
-          <div className="grid grid-cols-3 items-center gap-x-6">
-            <label htmlFor='category' className="text-sm text-gray-400 text-right">Category</label>
+          {/* Category */}
+          <div>
+            <label className="block text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">
+              Category
+            </label>
             <select
-              id="category"
               name="category"
               value={category}
               onChange={handleChange}
-              className="col-span-2 bg-gray-800 border border-gray-700 rounded-md px-4 py-2"
+              required
+              className="w-full px-4 py-3 rounded-xl 
+                        bg-gray-100 dark:bg-[#0B1220]
+                        border border-gray-300 dark:border-gray-700"
             >
-              <option value="" disabled>Select one</option>
+              <option value="" disabled>Select category</option>
               <option>Fashion</option>
               <option>Food</option>
               <option>Grocery</option>
@@ -92,65 +143,97 @@ const ExpenseForm = () => {
             </select>
           </div>
 
-          <div className="grid grid-cols-3 items-center gap-x-6">
-            <label htmlFor='date' className="text-sm text-gray-400 text-right">Date</label>
+          {/* Date */}
+          <div>
+            <label className="block text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">
+              Date
+            </label>
             <input
-              id='date'
-              name='date'
+              name="date"
               value={date}
               onChange={handleChange}
               type="date"
-              className="col-span-2 bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              required
+              className="w-full px-4 py-3 rounded-xl 
+                        bg-gray-100 dark:bg-[#0B1220]
+                        border border-gray-300 dark:border-gray-700
+                        focus:ring-2 focus:ring-teal-500"
             />
           </div>
 
-          <div className="grid grid-cols-3 items-center gap-x-6">
-            <label htmlFor='payment_type' className="text-sm text-gray-400 text-right">Payment type</label>
+          {/* Payment Type */}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">
+              Payment Type
+            </label>
             <select
-              id="payment_type"
               name="payment_type"
               value={payment_type}
               onChange={handleChange}
-              className="col-span-2 bg-gray-800 border border-gray-700 rounded-md px-4 py-2"
+              required
+              className="w-full px-4 py-3 rounded-xl 
+                        bg-gray-100 dark:bg-[#0B1220]
+                        border border-gray-300 dark:border-gray-700"
             >
-              <option value="" disabled>Select one</option>
+              <option value="" disabled>Select payment method</option>
               <option>UPI</option>
               <option>Cash</option>
               <option>Credit card</option>
             </select>
           </div>
 
-          <div className="grid grid-cols-3 items-start gap-x-6">
-            <label htmlFor='description' className="text-sm text-gray-400 text-right pt-2">
+          {/* Description */}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">
               Description
             </label>
             <textarea
-              id="description"
               name="description"
               value={description}
               onChange={handleChange}
-              rows={5}
-              className="col-span-2 bg-gray-800 border border-gray-700 rounded-md px-4 py-2"
-            ></textarea>
+              rows={4}
+              className="w-full px-4 py-3 rounded-xl 
+                        bg-gray-100 dark:bg-[#0B1220]
+                        border border-gray-300 dark:border-gray-700"
+            />
           </div>
+        </div>
 
-          <div className="grid grid-cols-3">
-            <div></div>
-            <div className="col-span-2 flex justify-end gap-4 pt-4">
-              <button className="px-6 py-2 bg-gray-700 rounded-md hover:bg-gray-600">
-                Save
-              </button>
-              <button className="px-6 py-2 bg-gray-700 rounded-md hover:bg-gray-600">
-                Delete
-              </button>
-            </div>
-          </div>
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row justify-end gap-4 pt-6">
 
-        </form>
-      </div>
+          {doEdit && (
+            <button
+              type="button"
+              onClick={() => {
+                setExpenseData(initialState)
+                setDoEdit(null)
+              }}
+              className="px-6 py-3 rounded-xl 
+                        border border-gray-400 dark:border-gray-600
+                        hover:bg-gray-200 dark:hover:bg-gray-800
+                        transition"
+            >
+              Cancel
+            </button>
+          )}
 
+          <button
+            type="submit"
+            className="px-8 py-3 rounded-xl font-semibold text-white
+                      bg-teal-600 hover:bg-teal-500
+                      transition duration-300 hover:scale-105 shadow-md"
+          >
+            {doEdit ? "Update Expense" : "Add Expense"}
+          </button>
+
+        </div>
+
+      </form>
     </div>
-  )
+  </div>
+)
+
 }
 
 export default ExpenseForm

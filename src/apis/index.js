@@ -2,32 +2,32 @@ const UserVal = "users"
 const UserToken = "currentUser"
 
 export const userRegister = ({ name, email, password }) => {
-  let users = JSON.parse(localStorage.getItem(UserVal)) || []
+    let users = JSON.parse(localStorage.getItem(UserVal)) || []
 
-  const isExist = users.find(item => item.email === email)
-  if (isExist) return false
+    const isExist = users.find(item => item.email === email)
+    if (isExist) return false
 
-  users.push({ name, email, password, expenses: [] })
-  localStorage.setItem(UserVal, JSON.stringify(users))
+    users.push({ name, email, password, expenses: [] })
+    localStorage.setItem(UserVal, JSON.stringify(users))
 
-  return true
+    return true
 }
 
 
 export const userLogin = ({ email, password }) => {
-  let users = JSON.parse(localStorage.getItem(UserVal)) || []
-  const currentUser = users.find(item => item.email === email)
+    let users = JSON.parse(localStorage.getItem(UserVal)) || []
+    const currentUser = users.find(item => item.email === email)
 
-  if (!currentUser) {
-    return { success: false, message: "User not registered" }
-  }
+    if (!currentUser) {
+        return { success: false, message: "User not registered" }
+    }
 
-  if (currentUser.password !== password) {
-    return { success: false, message: "Incorrect password" }
-  }
+    if (currentUser.password !== password) {
+        return { success: false, message: "Incorrect password" }
+    }
 
-  localStorage.setItem(UserToken, JSON.stringify(currentUser))
-  return { success: true, user: currentUser }
+    localStorage.setItem(UserToken, JSON.stringify(currentUser))
+    return { success: true, user: currentUser }
 }
 
 export const checkLogin = () => {
@@ -39,63 +39,96 @@ export const userLogout = () => {
 }
 
 export const addExpense = (expense) => {
-  let users = JSON.parse(localStorage.getItem(UserVal)) || []
-  const currentUser = JSON.parse(localStorage.getItem(UserToken))
+    let users = JSON.parse(localStorage.getItem(UserVal)) || []
+    const currentUser = JSON.parse(localStorage.getItem(UserToken))
 
-  if (!currentUser) {
-    return { success: false, message: "Not logged in" }
-  }
+    if (!currentUser) {
+        return { success: false, message: "Not logged in" }
+    }
 
-  const userIndex = users.findIndex(
-    user => user.email === currentUser.email
-  )
+    const userIndex = users.findIndex(
+        user => user.email === currentUser.email
+    )
 
-  if (userIndex === -1) {
-    return { success: false, message: "User not found" }
-  }
+    if (userIndex === -1) {
+        return { success: false, message: "User not found" }
+    }
 
-  const newExpense = {
-    id: Date.now(),   // simple unique id
-    ...expense
-  }
+    const newExpense = {
+        id: Date.now(),
+        ...expense
+    }
 
-  users[userIndex].expenses.push(newExpense)
-  localStorage.setItem(UserVal, JSON.stringify(users))
-  return { success: true }
+    if (!users[userIndex].expenses) {
+        users[userIndex].expenses = []
+    }
+    users[userIndex].expenses.push(newExpense)
+
+    localStorage.setItem(UserVal, JSON.stringify(users))
+    return { success: true }
 }
 
 export const fetchExpenses = () => {
-  let users = JSON.parse(localStorage.getItem(UserVal)) || []
-  const currentUser = JSON.parse(localStorage.getItem(UserToken))
+    let users = JSON.parse(localStorage.getItem(UserVal)) || []
+    const currentUser = JSON.parse(localStorage.getItem(UserToken))
 
-  if (!currentUser) return []
+    if (!currentUser) return []
 
-  const user = users.find(item => item.email === currentUser.email)
-  return user?.expenses || []
+    const user = users.find(item => item.email === currentUser.email)
+    return user?.expenses || []
 }
 
 export const deleteExpense = (id) => {
     let users = JSON.parse(localStorage.getItem(UserVal)) || []
-  const currentUser = JSON.parse(localStorage.getItem(UserToken))
+    const currentUser = JSON.parse(localStorage.getItem(UserToken))
 
-  if (!currentUser) {
-    return { success: false, message: "Not logged in" }
-  }
+    if (!currentUser) {
+        return { success: false, message: "Not logged in" }
+    }
 
-  const userIndex = users.findIndex(
-    user => user.email === currentUser.email
-  )
+    const userIndex = users.findIndex(
+        user => user.email === currentUser.email
+    )
 
-  if (userIndex === -1) {
-    return { success: false, message: "User not found" }
-  }
+    if (userIndex === -1) {
+        return { success: false, message: "User not found" }
+    }
 
-  users[userIndex].expenses =
-    users[userIndex].expenses.filter(item => item.id !== id)
+    users[userIndex].expenses =
+        users[userIndex].expenses.filter(item => item.id !== id)
 
-  localStorage.setItem(UserVal, JSON.stringify(users))
+    localStorage.setItem(UserVal, JSON.stringify(users))
 
-  return { success: true }
+    return { success: true }
 }
+
+export const updateExpense = (updatedExpense) => {
+    let users = JSON.parse(localStorage.getItem(UserVal)) || []
+    const currentUser = JSON.parse(localStorage.getItem(UserToken))
+
+    if (!currentUser) {
+        return { success: false, message: "User not logged in" }
+    }
+
+    const userIndex = users.findIndex(
+        (user) => user.email === currentUser.email
+    )
+
+    if (userIndex === -1) {
+        return { success: false, message: "User not found" }
+    }
+
+    users[userIndex].expenses =
+        users[userIndex].expenses.map((expense) =>
+            expense.id === updatedExpense.id
+                ? updatedExpense
+                : expense
+        )
+
+    localStorage.setItem(UserVal, JSON.stringify(users))
+
+    return { success: true }
+}
+
 
 // this is a fake api which will get the users data from the localstorage. Then verifies using isExist if the email is there in the local storage it will return false or else it will return true
