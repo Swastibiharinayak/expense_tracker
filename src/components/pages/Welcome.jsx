@@ -1,12 +1,15 @@
-import React, { useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import Features from './Features'
 import { FaBullseye, FaPiggyBank } from 'react-icons/fa'
 import { FaArrowTrendUp } from 'react-icons/fa6'
 import About from './About'
 import Reviews from './Reviews'
 import Footer from '../footer/Footer'
+import { Link } from 'react-router-dom'
+import AuthContext from '../../context/AuthContext'
 
 const Welcome = () => {
+  const {setIsLogin} = useContext(AuthContext)
 
   const aboutRef = useRef(null)
   const featuresRef = useRef(null)
@@ -39,9 +42,11 @@ const Welcome = () => {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button className="px-6 py-3 rounded-xl font-semibold text-white bg-teal-600 hover:bg-teal-500 transition-all duration-300 hover:scale-105 shadow-lg">
-                Start Free Today
-              </button>
+              <Link to="/login" onClick={() => setIsLogin(false)}>
+                <button className="px-6 py-3 rounded-xl font-semibold text-white bg-teal-600 hover:bg-teal-500 transition-all duration-300 hover:scale-105 shadow-lg">
+                  Start Free Today
+                </button>
+              </Link>
               <button className="px-6 py-3 rounded-xl border border-white/50 text-white backdrop-blur-md hover:bg-white/10 transition-all duration-300 hover:scale-105">
                 Watch Demo
               </button>
@@ -114,11 +119,11 @@ const Welcome = () => {
       </div>
 
 
-      <Features ref={featuresRef}/>
+      <Features ref={featuresRef} />
 
-      <About ref={aboutRef}/>
+      <About ref={aboutRef} />
 
-      <Reviews ref={reviewsRef}/>
+      <Reviews ref={reviewsRef} />
 
       <Footer />
     </section>

@@ -5,10 +5,12 @@ import { addExpense, checkLogin, deleteExpense, fetchExpenses, updateExpense, us
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState([])
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
   // const [error, setError] = useState(null)
   const [expenses, setExpenses] = useState([])
   const [doEdit, setDoEdit] = useState(null)
+  const [isLogin, setIsLogin] = useState(true) // For login or signup form show
 
 
   // Register handle
@@ -94,15 +96,13 @@ export const AuthProvider = ({ children }) => {
   // useEffect for stay logged in still after refresh
   useEffect(() => {
     const storedUser = checkLogin()
-    // console.log("Stored user:", storedUser)
+    // console.log("Stored user:", storedToken)
 
     if (storedUser) {
-      const parsed = JSON.parse(storedUser)
-      // console.log("Parsed user:", parsed)
-      if (parsed) {
-        setUser(parsed)
-      }
+      setUser(JSON.parse(storedUser))
     }
+
+    setLoading(false)
   }, [])
 
   // useEffect for refreshing fetchAllExpenses
@@ -114,7 +114,7 @@ export const AuthProvider = ({ children }) => {
 
   // console.log(user)
   return (
-    <AuthContext.Provider value={{ user, register, login, logout, addNewExpense, removeExpense, expenses, editExpense, doEdit, setDoEdit }}>
+    <AuthContext.Provider value={{ user, register, login, logout, addNewExpense, removeExpense, expenses, editExpense, doEdit, setDoEdit, isLogin, setIsLogin, loading }}>
       {children}
     </AuthContext.Provider>
   )

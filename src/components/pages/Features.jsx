@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FaBell, FaBullseye, FaChartPie, FaWallet } from 'react-icons/fa'
 import { FaArrowTrendUp, FaShield } from 'react-icons/fa6'
 import FeaturesCards from '../utils/FeaturesCards'
+import AuthContext from '../../context/AuthContext'
+import { Link } from 'react-router-dom'
 
 const Features = () => {
+    const { setIsLogin } = useContext(AuthContext)
+
     return (
         <>
             <div className='w-screen px-40 py-20 flex flex-col justify-center items-center'>
@@ -114,10 +118,12 @@ const Features = () => {
 
                     {/* CTA Button */}
                     <div className="mt-16">
-                        <button className="px-8 py-4 bg-teal-500 text-white rounded-lg
+                        <Link to="/login" onClick={() => setIsLogin(false)}>
+                            <button className="px-8 py-4 bg-teal-500 text-white rounded-lg
                              font-medium hover:bg-teal-600 transition">
-                            Start Your Journey →
-                        </button>
+                                Start Your Journey →
+                            </button>
+                        </Link>
                     </div>
 
                 </div>

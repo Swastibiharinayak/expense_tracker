@@ -12,28 +12,30 @@ const Navbar = () => {
   const [clicked, setClicked] = useState(false)
   const navigate = useNavigate()
 
-  const { user, logout } = useContext(AuthContext)
-
+  const { user, logout, loading, setIsLogin } = useContext(AuthContext)
+  // console.log(user)
+  
   // Scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
     }
-
+    
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
+  
   const handleLogout = () => {
     logout()
     toast.success("User Logged out")
     navigate("/")
     setClicked(false) // mobile menu close
   }
-
+  
   const handleMobileClose = () => {
     setClicked(false)
   }
+  if (loading) return null
 
   return (
     <nav
@@ -71,16 +73,18 @@ const Navbar = () => {
       <div className="hidden lg:flex gap-3">
         {!user ? (
           <>
-            <Link to="/login">
+            <Link to="/login" onClick={()=>setIsLogin(true)}>
               <button className="px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition">
                 Sign in
               </button>
             </Link>
-            <button className="px-4 py-2 rounded-lg font-semibold text-white
+            <Link to="/login" onClick={()=>setIsLogin(false)}>
+              <button className="px-4 py-2 rounded-lg font-semibold text-white
                                bg-gradient-to-r from-teal-700 to-teal-300
                                hover:scale-105 transition">
-              Get Started Free
-            </button>
+                Get Started Free
+              </button>
+            </Link>
           </>
         ) : (
           <>
@@ -130,16 +134,18 @@ const Navbar = () => {
           {/* Auth Buttons */}
           {!user ? (
             <div className="flex flex-col gap-4 w-[80%]">
-              <Link to="/login" onClick={handleMobileClose}>
+              <Link to="/login" onClick={()=>{setIsLogin(true); handleMobileClose()}}>
                 <button className="w-full px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition">
                   Sign in
                 </button>
               </Link>
+              <Link to="/login" onClick={()=>{setIsLogin(false); handleMobileClose()}}>
               <button className="w-full px-4 py-2 rounded-lg font-semibold text-white
                                  bg-gradient-to-r from-teal-700 to-teal-300
                                  hover:scale-105 transition">
                 Get Started Free
               </button>
+              </Link>
             </div>
           ) : (
             <div className="flex flex-col gap-4 w-[80%]">

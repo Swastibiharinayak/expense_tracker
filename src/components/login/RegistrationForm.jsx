@@ -5,9 +5,9 @@ import AuthContext from "../../context/AuthContext"
 import { toast } from "react-toastify"
 
 
-const RegistrationForm = ({setIsLogin}) => {
+const RegistrationForm = () => {
   // console.log("setIsLogin:", setIsLogin)
-
+  const { setIsLogin } = useContext(AuthContext)
   const [registerData, setRegisterData] = useState({
     name: "",
     email: "",

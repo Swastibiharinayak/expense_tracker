@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useContext } from 'react'
 import LoginForm from './LoginForm'
 import RegistrationForm from './RegistrationForm'
+import AuthContext from '../../context/AuthContext'
 
 const Login = () => {
-  const [isLogin, setIsLogin] = useState(true)
+  const { isLogin, setIsLogin } = useContext(AuthContext)
 
   return (
     <div className='bg-gradient-to-br from-[#0E1A2D] to-[#0B1220] w-screen py-24 flex flex-col gap-4 items-center justify-center'>
@@ -28,7 +29,7 @@ const Login = () => {
           </button>
         </div>
 
-        {isLogin ? <LoginForm /> : <RegistrationForm setIsLogin={setIsLogin}/>}
+        {isLogin ? <LoginForm /> : <RegistrationForm/>}
       </div>
 
       <p className='text-center text-sm text-slate-400'>
