@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { addExpense, checkLogin, deleteExpense, fetchExpenses, updateExpense, userLogin, userLogout, userRegister } from '../apis';
+import { addExpense, checkLogin, deleteExpense, fetchExpenses, updateExpense, userLogin, userLogout, userRegister, userUpdate } from '../apis';
 
 
 const AuthContext = createContext(null);
@@ -12,13 +12,12 @@ export const AuthProvider = ({ children }) => {
   const [doEdit, setDoEdit] = useState(null)
   const [isLogin, setIsLogin] = useState(true) // For login or signup form show
 
-
   // Register handle
   const register = ({ name, email, password }) => {
     const isRegistered = userRegister({ name, email, password })
 
     if (isRegistered) {
-      return { success: true }
+      return { success: true,message: "User registered successfully 🎉" }
     } else {
       return { success: false, message: "Email already exists" }
     }
@@ -43,9 +42,20 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  // Logout
   const logout = () => {
     setUser(null)
     userLogout()
+  }
+
+  // Update Profile
+  const update = (profileData) => {
+    const response = userUpdate(profileData)
+    if (response) {
+      return { success: true,message: "Profile updated successfully" }
+    } else {
+      return { success: false, message: "Failed to update" }
+    }
   }
 
   // Add new expense fucntion
@@ -114,7 +124,7 @@ export const AuthProvider = ({ children }) => {
 
   // console.log(user)
   return (
-    <AuthContext.Provider value={{ user, register, login, logout, addNewExpense, removeExpense, expenses, editExpense, doEdit, setDoEdit, isLogin, setIsLogin, loading }}>
+    <AuthContext.Provider value={{ user, register, login, logout, update, addNewExpense, removeExpense, expenses, editExpense, doEdit, setDoEdit, isLogin, setIsLogin, loading }}>
       {children}
     </AuthContext.Provider>
   )

@@ -30,13 +30,50 @@ export const userLogin = ({ email, password }) => {
     return { success: true, user: currentUser }
 }
 
+
 export const checkLogin = () => {
     return localStorage.getItem(UserToken)
 }
 
+
 export const userLogout = () => {
     return localStorage.removeItem(UserToken)
 }
+
+
+export const userUpdate = (profileData) => {
+    let users = JSON.parse(localStorage.getItem(UserVal)) || []
+    const currentUser = JSON.parse(localStorage.getItem(UserToken))
+
+    if (!currentUser) {
+        return { success: false, message: "User not logged in" }
+    }
+
+    const userIndex = users.findIndex(
+        user => user.email === currentUser.email
+    )
+
+    if (userIndex === -1) {
+        return { success: false, message: "User not found" }
+    }
+
+    users[userIndex] = {
+        ...users[userIndex],
+        ...profileData
+    };
+
+    // update users array
+    localStorage.setItem(UserVal, JSON.stringify(users));
+
+    // update currentUser
+    localStorage.setItem(
+        "currentUser",
+        JSON.stringify(users[userIndex])
+    );
+
+    return { success: true, data: users[userIndex] };
+}
+
 
 export const addExpense = (expense) => {
     let users = JSON.parse(localStorage.getItem(UserVal)) || []

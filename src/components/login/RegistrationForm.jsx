@@ -47,7 +47,7 @@ const RegistrationForm = () => {
     const response = register({ name, email, password })
 
     if (response.success) {
-      toast.success("User registered successfully 🎉")
+      toast.success(response.message)
       setIsLogin(true)
 
     } else {
