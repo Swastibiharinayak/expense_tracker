@@ -168,4 +168,103 @@ export const updateExpense = (updatedExpense) => {
 }
 
 
+
+
+
+// Goals
+
+export const addGoal = (goal) => {
+    let users = JSON.parse(localStorage.getItem(UserVal)) || []
+    const currentUser = JSON.parse(localStorage.getItem(UserToken))
+
+    if (!currentUser) {
+        return { success: false, message: "Not logged in" }
+    }
+
+    const userIndex = users.findIndex(
+        user => user.email === currentUser.email
+    )
+
+    if (userIndex === -1) {
+        return { success: false, message: "User not found" }
+    }
+
+    const newGoal = {
+        id: Date.now(),
+        ...goal
+    }
+
+    if (!users[userIndex].goals) {
+        users[userIndex].goals = []
+    }
+    users[userIndex].goals.push(newGoal)
+
+    localStorage.setItem(UserVal, JSON.stringify(users))
+    return { success: true, message: "Goal created successfully" }
+}
+
+export const fetchGoals = () => {
+    let users = JSON.parse(localStorage.getItem(UserVal)) || []
+    const currentUser = JSON.parse(localStorage.getItem(UserToken))
+
+    if (!currentUser) return []
+
+    const user = users.find(item => item.email === currentUser.email)
+    return user?.goals || []
+}
+
+export const deleteGoal = (id) => {
+    let users = JSON.parse(localStorage.getItem(UserVal)) || []
+    const currentUser = JSON.parse(localStorage.getItem(UserToken))
+
+    if (!currentUser) {
+        return { success: false, message: "Not logged in" }
+    }
+
+    const userIndex = users.findIndex(
+        user => user.email === currentUser.email
+    )
+
+    if (userIndex === -1) {
+        return { success: false, message: "User not found" }
+    }
+
+    users[userIndex].goals =
+        users[userIndex].goals.filter(item => item.id !== id)
+
+    localStorage.setItem(UserVal, JSON.stringify(users))
+
+    return { success: true, message: "Goal deleted" }
+}
+
+export const updateGoals = (updatedGoals) => {
+    let users = JSON.parse(localStorage.getItem(UserVal)) || []
+    const currentUser = JSON.parse(localStorage.getItem(UserToken))
+
+    if (!currentUser) {
+        return { success: false, message: "User not logged in" }
+    }
+
+    const userIndex = users.findIndex(
+        (user) => user.email === currentUser.email
+    )
+
+    if (userIndex === -1) {
+        return { success: false, message: "User not found" }
+    }
+
+    users[userIndex].goals =
+        users[userIndex].goals.map((goal) =>
+            goal.id === updatedGoals.id
+                ? updatedGoals
+                : goal
+        )
+
+    localStorage.setItem(UserVal, JSON.stringify(users))
+
+    return { success: true, message: "Goal updated" }
+}
+
+
+
 // this is a fake api which will get the users data from the localstorage. Then verifies using isExist if the email is there in the local storage it will return false or else it will return true

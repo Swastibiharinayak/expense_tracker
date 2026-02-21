@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { addExpense, checkLogin, deleteExpense, fetchExpenses, updateExpense, userLogin, userLogout, userRegister, userUpdate } from '../apis';
+import { addExpense, addGoal, checkLogin, deleteExpense, deleteGoal, fetchExpenses, fetchGoals, updateExpense, updateGoals, userLogin, userLogout, userRegister, userUpdate } from '../apis';
 
 
 const AuthContext = createContext(null);
@@ -9,7 +9,9 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
   // const [error, setError] = useState(null)
   const [expenses, setExpenses] = useState([])
-  const [doEdit, setDoEdit] = useState(null)
+  const [goals, setGoals] = useState([])
+  const [doEditExpense, setDoEditExpense] = useState(null)
+  const [doEditGoal, setDoEditGoal] = useState(null)
   const [isLogin, setIsLogin] = useState(true) // For login or signup form show
 
   // Register handle
@@ -58,6 +60,8 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+
+  // Expense
   // Add new expense fucntion
   const addNewExpense = (expenseData) => {
     const response = addExpense(expenseData)
@@ -103,6 +107,53 @@ export const AuthProvider = ({ children }) => {
   }
 
 
+
+  // Goals
+  // Add new goal fucntion
+  const setGoal = (goalsData) => {
+    const response = addGoal(goalsData)
+    // console.log(response)
+    if (response.success) {
+      getGoals()
+      // return { success: true }
+    }
+
+    return response
+  }
+
+
+  // Fetch all goals
+  const getGoals = () => {
+    const data = fetchGoals()
+    setGoals(data)
+  }
+
+
+  // Delete goal
+  const removeGoal = (id) => {
+    const response = deleteGoal(id)
+
+    if (response.success) {
+      getGoals()
+    }
+
+    return response
+  }
+
+
+  // Edit goals
+  const editGoal = (goalData) => {
+    const response = updateGoals(goalData)
+
+    if (response.success) {
+      const updatedGoals = getGoals()
+      setGoals(updatedGoals)
+    }
+
+    return response
+  }
+
+
   // useEffect for stay logged in still after refresh
   useEffect(() => {
     const storedUser = checkLogin()
@@ -119,12 +170,13 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (user) {
       fetchAllExpenses()
+      getGoals()
     }
   }, [user])
 
   // console.log(user)
   return (
-    <AuthContext.Provider value={{ user, register, login, logout, update, addNewExpense, removeExpense, expenses, editExpense, doEdit, setDoEdit, isLogin, setIsLogin, loading }}>
+    <AuthContext.Provider value={{ user, register, login, logout, update, addNewExpense, removeExpense, expenses, editExpense, doEditExpense, setDoEditExpense, isLogin, setIsLogin, loading, setGoal, getGoals, removeGoal, editGoal, goals, doEditGoal, setDoEditGoal }}>
       {children}
     </AuthContext.Provider>
   )

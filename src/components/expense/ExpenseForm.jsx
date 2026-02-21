@@ -16,7 +16,7 @@ const ExpenseForm = () => {
   const [expenseData, setExpenseData] = useState(initialState)
   const { title, amount, category, date, payment_type, description } = expenseData
 
-  const { addNewExpense, doEdit, setDoEdit, editExpense } = useContext(AuthContext)
+  const { addNewExpense, doEditExpense, setDoEditExpense, editExpense } = useContext(AuthContext)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -32,26 +32,26 @@ const ExpenseForm = () => {
   e.preventDefault()
   let response
 
-  if (doEdit) {
+  if (doEditExpense) {
     response = editExpense(expenseData)
   } else {
     response = addNewExpense(expenseData)
   }
 
   if (response.success) {
-    toast.success(doEdit ? "Expense updated" : "Expense added")
+    toast.success(doEditExpense ? "Expense updated" : "Expense added")
     setExpenseData(initialState)
-    setDoEdit(null)
+    setDoEditExpense(null)
   } else {
     toast.error(response.message)
   }
 }
 
   useEffect(() => {
-    if (doEdit) {
-      setExpenseData(doEdit)
+    if (doEditExpense) {
+      setExpenseData(doEditExpense)
     }
-  }, [doEdit])
+  }, [doEditExpense])
 
 
   // console.log(expenses)
@@ -62,10 +62,10 @@ const ExpenseForm = () => {
     {/* Header */}
     <div className="mb-8">
       <h1 className="text-3xl sm:text-4xl font-semibold">
-        {doEdit ? "Update Expense" : "Add New Expense"}
+        {doEditExpense ? "Update Expense" : "Add New Expense"}
       </h1>
       <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm">
-        {doEdit
+        {doEditExpense
           ? "Modify your existing expense details"
           : "Track your spending by adding a new expense"}
       </p>
@@ -202,12 +202,12 @@ const ExpenseForm = () => {
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row justify-end gap-4 pt-6">
 
-          {doEdit && (
+          {doEditExpense && (
             <button
               type="button"
               onClick={() => {
                 setExpenseData(initialState)
-                setDoEdit(null)
+                setDoEditExpense(null)
               }}
               className="px-6 py-3 rounded-xl 
                         border border-gray-400 dark:border-gray-600
@@ -224,7 +224,7 @@ const ExpenseForm = () => {
                       bg-teal-600 hover:bg-teal-500
                       transition duration-300 hover:scale-105 shadow-md"
           >
-            {doEdit ? "Update Expense" : "Add Expense"}
+            {doEditExpense ? "Update Expense" : "Add Expense"}
           </button>
 
         </div>

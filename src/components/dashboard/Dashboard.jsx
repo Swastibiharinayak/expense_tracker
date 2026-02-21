@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react'
 import { FaArrowAltCircleRight } from 'react-icons/fa'
 import { IoClose } from 'react-icons/io5'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet} from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
 // import { Menu, X } from 'lucide-react'
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false)
   const { user } = useContext(AuthContext)
-//   console.log(user)
+  //   console.log(user)
 
   const dashboardItems = ["overview", "expense form", "goals", "profile", "insights"]
 
@@ -79,7 +79,9 @@ const Dashboard = () => {
           </button>
 
           <h2 className="text-lg font-semibold">
-            Dashboard
+            <Link to="/dashboard">
+              Dashboard
+            </Link>
           </h2>
         </div>
 

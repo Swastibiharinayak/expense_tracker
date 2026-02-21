@@ -1,17 +1,32 @@
-import React, { useState } from 'react'
-import { FaBook, FaCar, FaChartLine, FaHome, FaPlane, FaUser } from 'react-icons/fa'
+import React, { useContext, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
+import AuthContext from '../../context/AuthContext'
 
 const Goals = () => {
   const initialState = {
+    id: "",
     title: "",
-    amount: "",
+    targetAmount: "",
     category: "",
     lastdate: "",
     description: ""
   }
 
+  const { setGoal, doEditGoal, setDoEditGoals, editGoal } = useContext(AuthContext)
   const [goalsData, setGoalsData] = useState(initialState)
-  const { title, amount, category, lastdate, description } = goalsData
+  const { title, targetAmount, category, lastdate, description } = goalsData
+
+  const calculateMonths = (targetDate) => {
+    const today = new Date();
+    const end = new Date(targetDate);
+
+    if (end <= today) return 0;
+
+    const yearDiff = end.getFullYear() - today.getFullYear();
+    const monthDiff = end.getMonth() - today.getMonth();
+
+    return yearDiff * 12 + monthDiff;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -20,9 +35,51 @@ const Goals = () => {
   }
 
   const handleGoalsData = (e) => {
-    e.preventDefault()
-    console.log(goalsData)
-  }
+    e.preventDefault();
+
+    const months = calculateMonths(lastdate);
+
+    if (months <= 0) {
+      toast.error("Please select a future date");
+      return;
+    }
+
+    const target = Number(targetAmount);
+    const monthlyRequired = target / months;
+
+    const newGoal = {
+      ...goalsData,
+      id: crypto.randomUUID(),
+      targetAmount: target,
+      savedAmount: 0,
+      createdAt: new Date().toISOString(),
+      tenureMonths: months,
+      monthlyRequired
+    };
+
+    // console.log(newGoal)
+    let response;
+
+    if (doEditGoal) {
+      response = editGoal(newGoal)
+    } else {
+      response = setGoal(newGoal)
+    }
+
+    if (response.success) {
+      toast.success(response.message);
+      setGoalsData(initialState);
+    } else {
+      toast.error(response.message);
+    }
+  };
+
+  useEffect(() => {
+    if (doEditGoal) {
+      setGoalsData(doEditGoal)
+    }
+  }, [doEditGoal])
+
   return (
     <div className="h-full overflow-y-auto px-4 sm:px-10 py-8">
 
@@ -37,22 +94,6 @@ const Goals = () => {
       </div>
 
       <form onSubmit={handleGoalsData} className="space-y-10">
-
-        {/* Profile Photo
-        <div className="flex items-center gap-6">
-          <div className="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-2xl font-semibold text-gray-600 dark:text-gray-300">
-            <FaUser />
-          </div>
-
-          <button
-            type="button"
-            className="px-5 py-2 rounded-lg border border-gray-300 dark:border-gray-600
-                       text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-          >
-            Upload Photo
-          </button>
-          <input type="file" name="" id="" />
-        </div> */}
 
         {/* Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -76,14 +117,14 @@ const Goals = () => {
             />
           </div>
 
-          {/* Amount */}
+          {/* Target Amount */}
           <div>
             <label className="block text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">
-              Amount
+              Target Amount
             </label>
             <input
-              name="amount"
-              value={amount}
+              name="targetAmount"
+              value={targetAmount}
               onChange={handleChange}
               type="number"
               required
@@ -110,13 +151,13 @@ const Goals = () => {
                         border border-gray-300 dark:border-gray-700"
             >
               <option value="" disabled>Select category</option>
-              <option><FaPlane /> Travel</option>
-              <option><FaCar /> Purchase</option>
+              <option>Travel</option>
+              <option>Purchase</option>
               <option>Shopping</option>
-              <option><FaHome	/> Home</option>
-              <option><FaChartLine	/> Investment</option>
-              <option><FaBook	 /> Education</option>
-              <option><FaUser />  Personal</option>
+              <option>Home</option>
+              <option>Investment</option>
+              <option>Education</option>
+              <option>Personal</option>
             </select>
           </div>
 
@@ -156,24 +197,33 @@ const Goals = () => {
         </div>
 
         {/* Buttons */}
-        <div className="flex justify-end gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
-          <button
-            type="button"
-            className="px-6 py-3 rounded-xl border
-                       border-gray-300 dark:border-gray-600
-                       hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-          >
-            Cancel
-          </button>
+        <div className="flex flex-col sm:flex-row justify-end gap-4 pt-6">
+
+          {doEditGoal && (
+            <button
+              type="button"
+              onClick={() => {
+                setGoalsData(initialState)
+                setDoEditGoals(null)
+              }}
+              className="px-6 py-3 rounded-xl 
+                        border border-gray-400 dark:border-gray-600
+                        hover:bg-gray-200 dark:hover:bg-gray-800
+                        transition"
+            >
+              Cancel
+            </button>
+          )}
 
           <button
             type="submit"
             className="px-8 py-3 rounded-xl font-semibold text-white
-                       bg-teal-600 hover:bg-teal-500
-                       transition duration-300 hover:scale-105 shadow-md"
+                      bg-teal-600 hover:bg-teal-500
+                      transition duration-300 hover:scale-105 shadow-md"
           >
-            Add goal
+            {doEditGoal ? "Update Goals" : "Add Goal"}
           </button>
+
         </div>
 
       </form>

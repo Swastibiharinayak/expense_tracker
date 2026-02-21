@@ -54,7 +54,7 @@ const Profile = () => {
     const response = update(profileData)
 
     if (response.success) {
-      toast.success("Profile updated successfully")
+      toast.success(response.message)
 
     } else {
       toast.error(response.message)
