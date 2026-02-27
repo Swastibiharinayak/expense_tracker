@@ -3,7 +3,7 @@ import ListIterator from '../utils/ListIterator'
 // import { useTheme } from "../../hooks/useTheme"
 
 const Navlist = () => {
-    const nav_items = ["features" ,"about", "reviews"]
+    const nav_items = ["features" ,"about", "reviews", "contact"]
     // const { theme, toggleTheme } = useTheme();
 
     return (

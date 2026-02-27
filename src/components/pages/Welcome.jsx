@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react'
+import React, { useContext} from 'react'
 import Features from './Features'
 import { FaBullseye, FaPiggyBank } from 'react-icons/fa'
 import { FaArrowTrendUp } from 'react-icons/fa6'
@@ -7,14 +7,10 @@ import Reviews from './Reviews'
 import Footer from '../footer/Footer'
 import { Link } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
+import Contact from './Contact'
 
 const Welcome = () => {
   const {setIsLogin} = useContext(AuthContext)
-
-  const aboutRef = useRef(null)
-  const featuresRef = useRef(null)
-  const reviewsRef = useRef(null)
-
 
   return (
     <section className="bg-white dark:bg-black text-black dark:text-gray-200">
@@ -119,11 +115,13 @@ const Welcome = () => {
       </div>
 
 
-      <Features ref={featuresRef} />
+      <Features/>
 
-      <About ref={aboutRef} />
+      <About/>
 
-      <Reviews ref={reviewsRef} />
+      <Reviews />
+
+      <Contact/> 
 
       <Footer />
     </section>

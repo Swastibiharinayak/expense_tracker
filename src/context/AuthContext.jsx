@@ -1,5 +1,6 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useRef, useState } from 'react'
 import { addExpense, addGoal, checkLogin, deleteExpense, deleteGoal, fetchExpenses, fetchGoals, updateExpense, updateGoals, userLogin, userLogout, userRegister, userUpdate } from '../apis';
+import Features from '../components/pages/Features';
 
 
 const AuthContext = createContext(null);
@@ -14,12 +15,25 @@ export const AuthProvider = ({ children }) => {
   const [doEditGoal, setDoEditGoal] = useState(null)
   const [isLogin, setIsLogin] = useState(true) // For login or signup form show
 
+  const sectionRefs = {
+    about: useRef(null),
+    features: useRef(null),
+    reviews: useRef(null),
+    contact: useRef(null)
+  };
+
+  const scrollToSection = (key) => {
+    sectionRefs[key]?.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
   // Register handle
   const register = ({ name, email, password }) => {
     const isRegistered = userRegister({ name, email, password })
 
     if (isRegistered) {
-      return { success: true,message: "User registered successfully 🎉" }
+      return { success: true, message: "User registered successfully 🎉" }
     } else {
       return { success: false, message: "Email already exists" }
     }
@@ -54,7 +68,7 @@ export const AuthProvider = ({ children }) => {
   const update = (profileData) => {
     const response = userUpdate(profileData)
     if (response) {
-      return { success: true,message: "Profile updated successfully" }
+      return { success: true, message: "Profile updated successfully" }
     } else {
       return { success: false, message: "Failed to update" }
     }
@@ -176,7 +190,10 @@ export const AuthProvider = ({ children }) => {
 
   // console.log(user)
   return (
-    <AuthContext.Provider value={{ user, register, login, logout, update, addNewExpense, removeExpense, expenses, editExpense, doEditExpense, setDoEditExpense, isLogin, setIsLogin, loading, setGoal, getGoals, removeGoal, editGoal, goals, doEditGoal, setDoEditGoal }}>
+    <AuthContext.Provider value={{
+      user, register, login, logout, update, addNewExpense, removeExpense, expenses, editExpense, doEditExpense, setDoEditExpense, isLogin, setIsLogin, loading, setGoal, getGoals, removeGoal, editGoal, goals, doEditGoal, setDoEditGoal, sectionRefs,
+      scrollToSection
+    }}>
       {children}
     </AuthContext.Provider>
   )

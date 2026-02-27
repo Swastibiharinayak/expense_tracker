@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FaAward, FaCheck, FaGlobe, FaHeart, FaUsers } from 'react-icons/fa'
 import { FaRightFromBracket } from 'react-icons/fa6'
 import AboutCards from '../utils/AboutCards'
+import AuthContext from '../../context/AuthContext'
 
 const About = () => {
+
+  const {sectionRefs} = useContext(AuthContext)
+
+  // console.log(sectionRefs)
+
   return (
-    <section className="bg-gradient-to-b from-[#0E1A2D] to-[#0B1220] py-28">
+    <section ref={sectionRefs?.about} className="bg-gradient-to-b from-[#0E1A2D] to-[#0B1220] py-28">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 
         {/* LEFT CONTENT */}

@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { FaChevronLeft, FaChevronRight, FaQuoteLeft, FaStar } from 'react-icons/fa'
+import AuthContext from '../../context/AuthContext';
 // import TestimonialCard from '../utils/TestimonialCards'
 
 const Reviews = () => {
+
+  const {sectionRefs} = useContext(AuthContext)
+
   const reviews = [
     {
       id: 1,
@@ -62,7 +66,7 @@ const Reviews = () => {
   ];
 
   return (
-    <section className="py-24 bg-background relative overflow-hidden">
+    <section ref={sectionRefs?.reviews} className="py-24 bg-background relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-20 left-20 w-72 h-72 bg-white rounded-full blur-3xl" />
       <div className="absolute bottom-20 right-20 w-72 h-72 bg-teal-50 rounded-full blur-3xl" />

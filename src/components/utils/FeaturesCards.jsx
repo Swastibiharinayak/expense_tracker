@@ -1,15 +1,45 @@
-import React from 'react'
+import React from "react";
 
-const FeaturesCards = ({icon, heading, paragraph}) => {
-    return (
-        <div className='rounded-xl hover:scale-105 bg-slate-100 border transition-all duration-300 ease-out w-96 h-80 flex flex-col justify-center items-start p-6 hover:shadow-lg'>
-            <div className='p-3 bg-green-400 rounded-xl h-12 w-12 text-2xl text-white'>
-                {icon}
-            </div>
-            <h3 className='text-2xl font-semibold'>{heading}</h3>
-            <p className='text-slate-400'>{paragraph}</p>
-        </div>
-    )
-}
+const FeaturesCards = ({ icon, heading, paragraph }) => {
+  return (
+    <div
+      className="
+        w-full sm:w-[340px] lg:w-[360px]
+        min-h-[260px]
+        rounded-2xl
+        bg-white dark:bg-[#111C33]
+        border border-gray-200 dark:border-white/10
+        p-6
+        flex flex-col justify-start gap-5
+        transition-all duration-300
+        hover:shadow-xl hover:-translate-y-2
+      "
+    >
+      {/* Icon */}
+      <div
+        className="
+          w-12 h-12
+          flex items-center justify-center
+          rounded-xl
+          bg-teal-100 dark:bg-teal-500/10
+          text-teal-600 dark:text-teal-500
+          text-xl
+        "
+      >
+        {icon}
+      </div>
 
-export default FeaturesCards
+      {/* Heading */}
+      <h3 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white">
+        {heading}
+      </h3>
+
+      {/* Paragraph */}
+      <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed">
+        {paragraph}
+      </p>
+    </div>
+  );
+};
+
+export default FeaturesCards;

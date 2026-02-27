@@ -6,19 +6,45 @@ import AuthContext from '../../context/AuthContext'
 import { Link } from 'react-router-dom'
 
 const Features = () => {
-    const { setIsLogin } = useContext(AuthContext)
+    const { setIsLogin, sectionRefs } = useContext(AuthContext)
 
     return (
         <>
-            <div className='w-screen px-40 py-20 flex flex-col justify-center items-center'>
-                <span className='rounded-full border p-2 text-xl bg-slate-50'>✨ Why Choose SpendWise</span>
+            <div
+                ref={sectionRefs?.features}
+                className='w-full px-6 sm:px-12 lg:px-24 py-20 
+                           bg-gray-50 dark:bg-[#0B1220]
+                           flex flex-col items-center text-center'
+            >
 
-                <h1 className='text-transform: capitalize text-7xl font-semibold text-center'>Everything You Need to <span className='text-teal-500'>Master Your Finances</span></h1>
+                {/* Tag */}
+                <span className='rounded-full border 
+                                 border-gray-300 dark:border-white/10
+                                 px-4 py-2 text-sm
+                                 bg-white dark:bg-[#111C33]
+                                 text-gray-600 dark:text-gray-300
+                                 shadow-sm'>
+                    ✨ Why Choose SpendWise
+                </span>
 
-                <p className='text-slate-500 text-2xl'>From tracking daily expenses to planning long-term investments, our intelligent platform adapts to your financial journey.</p>
+                {/* Heading */}
+                <h1 className='mt-6 text-4xl sm:text-5xl lg:text-6xl font-semibold 
+                               text-gray-800 dark:text-white leading-tight'>
+                    Everything You Need to{" "}
+                    <span className='text-teal-600 dark:text-teal-500'>
+                        Master Your Finances
+                    </span>
+                </h1>
 
-                <div className='flex flex-wrap gap-5 justify-center items-center'>
+                {/* Paragraph */}
+                <p className='mt-6 max-w-3xl 
+                              text-gray-500 dark:text-gray-400 text-lg'>
+                    From tracking daily expenses to planning long-term investments,
+                    our intelligent platform adapts to your financial journey.
+                </p>
 
+                {/* Feature Cards */}
+                <div className='mt-16 flex flex-wrap gap-6 justify-center'>
                     <FeaturesCards
                         icon={<FaWallet />}
                         heading="Smart Expense Tracking"
@@ -49,38 +75,42 @@ const Features = () => {
                         heading="Secure & Private"
                         paragraph="Bank-level encryption keeps your data safe. Your financial information stays yours."
                     />
-
                 </div>
             </div>
-            <section className="py-20">
+
+            {/* HOW IT WORKS SECTION */}
+            <section className="py-20 bg-white dark:bg-[#111C33]">
                 <div className="max-w-6xl mx-auto px-6 text-center">
 
-                    {/* Heading */}
-                    <h2 className="text-4xl font-semibold text-gray-900">
+                    <h2 className="text-3xl sm:text-4xl font-semibold 
+                                   text-gray-800 dark:text-white">
                         How It Works
                     </h2>
-                    <p className="mt-4 text-gray-600">
+
+                    <p className="mt-4 text-gray-500 dark:text-gray-400">
                         Get started in minutes and transform your financial life in three simple steps.
                     </p>
 
-                    {/* Steps */}
                     <div className="relative mt-20">
 
-                        {/* Connecting line */}
-                        <div className="absolute top-6 left-0 right-0 h-[2px] bg-teal-200"></div>
+                        {/* Connecting Line */}
+                        <div className="hidden md:block absolute top-7 left-0 right-0 
+                                        h-[2px] bg-gray-200 dark:bg-white/10">
+                        </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
 
                             {/* Step 1 */}
                             <div className="flex flex-col items-center text-center">
                                 <div className="z-10 w-14 h-14 flex items-center justify-center
-                              rounded-full bg-teal-500 text-white font-semibold">
+                                                rounded-full bg-teal-600 text-white font-semibold shadow-md">
                                     01
                                 </div>
-                                <h3 className="mt-6 text-lg font-semibold">
+                                <h3 className="mt-6 text-lg font-semibold 
+                                               text-gray-800 dark:text-white">
                                     Connect Your Accounts
                                 </h3>
-                                <p className="mt-2 text-gray-600">
+                                <p className="mt-2 text-gray-500 dark:text-gray-400">
                                     Securely link your bank accounts and cards for automatic tracking.
                                 </p>
                             </div>
@@ -88,13 +118,14 @@ const Features = () => {
                             {/* Step 2 */}
                             <div className="flex flex-col items-center text-center">
                                 <div className="z-10 w-14 h-14 flex items-center justify-center
-                              rounded-full bg-teal-500 text-white font-semibold">
+                                                rounded-full bg-teal-600 text-white font-semibold shadow-md">
                                     02
                                 </div>
-                                <h3 className="mt-6 text-lg font-semibold">
+                                <h3 className="mt-6 text-lg font-semibold 
+                                               text-gray-800 dark:text-white">
                                     Set Your Goals
                                 </h3>
-                                <p className="mt-2 text-gray-600">
+                                <p className="mt-2 text-gray-500 dark:text-gray-400">
                                     Tell us your income, expenses, and what you're saving for.
                                 </p>
                             </div>
@@ -102,13 +133,14 @@ const Features = () => {
                             {/* Step 3 */}
                             <div className="flex flex-col items-center text-center">
                                 <div className="z-10 w-14 h-14 flex items-center justify-center
-                              rounded-full bg-teal-500 text-white font-semibold">
+                                                rounded-full bg-teal-600 text-white font-semibold shadow-md">
                                     03
                                 </div>
-                                <h3 className="mt-6 text-lg font-semibold">
+                                <h3 className="mt-6 text-lg font-semibold 
+                                               text-gray-800 dark:text-white">
                                     Get AI Insights
                                 </h3>
-                                <p className="mt-2 text-gray-600">
+                                <p className="mt-2 text-gray-500 dark:text-gray-400">
                                     Receive personalized suggestions and watch your wealth grow.
                                 </p>
                             </div>
@@ -116,11 +148,13 @@ const Features = () => {
                         </div>
                     </div>
 
-                    {/* CTA Button */}
+                    {/* CTA */}
                     <div className="mt-16">
                         <Link to="/login" onClick={() => setIsLogin(false)}>
-                            <button className="px-8 py-4 bg-teal-500 text-white rounded-lg
-                             font-medium hover:bg-teal-600 transition">
+                            <button className="px-8 py-3 rounded-xl font-semibold
+                                               bg-teal-600 hover:bg-teal-500
+                                               text-white transition duration-300
+                                               hover:scale-105 shadow-md">
                                 Start Your Journey →
                             </button>
                         </Link>
