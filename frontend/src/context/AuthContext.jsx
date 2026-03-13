@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   // const [error, setError] = useState(null)
   const [expenses, setExpenses] = useState([])
   const [goals, setGoals] = useState([])
+  const [investments, setInvestments] = useState([])
   const [doEditExpense, setDoEditExpense] = useState(null)
   const [doEditGoal, setDoEditGoal] = useState(null)
   const [isLogin, setIsLogin] = useState(true) // For login or signup form show
@@ -192,7 +193,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={{
       user, register, login, logout, update, addNewExpense, removeExpense, expenses, editExpense, doEditExpense, setDoEditExpense, isLogin, setIsLogin, loading, setGoal, getGoals, removeGoal, editGoal, goals, doEditGoal, setDoEditGoal, sectionRefs,
-      scrollToSection
+      scrollToSection, investments, setInvestments
     }}>
       {children}
     </AuthContext.Provider>

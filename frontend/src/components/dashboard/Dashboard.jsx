@@ -10,7 +10,7 @@ const Dashboard = () => {
   const { user } = useContext(AuthContext)
   //   console.log(user)
 
-  const dashboardItems = ["overview", "expense form", "goals", "profile", "insights"]
+  const dashboardItems = ["overview", "expense form", "goals", "invest", "profile", "insights"]
 
   return (
     <div className="flex h-[88vh] bg-gray-50 dark:bg-[#0B1220] text-gray-900 dark:text-white overflow-hidden">

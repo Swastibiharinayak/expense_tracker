@@ -14,6 +14,7 @@ import Goals from "../dashboard/Goals";
 import Insights from "../dashboard/Insights";
 import Overview from "../dashboard/Overview";
 import Profile from "../dashboard/Profile";
+import Invest from "../investment/Invest";
 
 export const router = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
                     {
                         path: "/dashboard/goals",
                         element: <Goals />
+                    },
+                    {
+                        path: "/dashboard/invest",
+                        element: <Invest />
                     },
                     {
                         path: "/dashboard/insights",
